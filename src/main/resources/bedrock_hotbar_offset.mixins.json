@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.bizcub.bedrockHotbarOffset.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "InGameHudOffsetMixin",
+    "BarOffsetMixin",
+    "ExperienceBarOffsetMixin",
+    "JumpBarOffsetMixin",
+    "LocatorBarOffsetMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "requireAnnotations": true
+  }
+}

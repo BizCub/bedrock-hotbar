@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "bedrock_hotbar_offset",
+  "version": "${version}",
+  "name": "Bedrock Hotbar Offset",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "client",
+  "entrypoints": {},
+  "mixins": [
+    "bedrock_hotbar_offset.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "${minecraft_version}"
+  }
+}

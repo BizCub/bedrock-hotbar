@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "bedrock_hotbar_offset",
+  "id": "bedrock_hotbar",
   "version": "${version}",
-  "name": "Bedrock Hotbar Offset",
+  "name": "Bedrock Hotbar",
   "description": "",
   "authors": [],
   "contact": {},
@@ -11,7 +11,7 @@
   "environment": "client",
   "entrypoints": {},
   "mixins": [
-    "bedrock_hotbar_offset.mixins.json"
+    "bedrock_hotbar.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",

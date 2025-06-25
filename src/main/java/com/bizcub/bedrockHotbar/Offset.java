@@ -1,4 +1,4 @@
-package com.bizcub.bedrockHotbarOffset;
+package com.bizcub.bedrockHotbar;
 
 public class Offset {
     public static int operation(int x) {

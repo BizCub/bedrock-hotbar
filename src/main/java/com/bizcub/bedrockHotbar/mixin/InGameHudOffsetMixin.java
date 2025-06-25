@@ -1,6 +1,6 @@
-package com.bizcub.bedrockHotbarOffset.mixin;
+package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbarOffset.Offset;
+import com.bizcub.bedrockHotbar.Offset;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

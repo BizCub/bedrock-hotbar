@@ -1,13 +1,13 @@
-package com.bizcub.bedrockHotbarOffset.mixin;
+package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbarOffset.Offset;
-import net.minecraft.client.gui.hud.bar.JumpBar;
+import com.bizcub.bedrockHotbar.Offset;
+import net.minecraft.client.gui.hud.bar.ExperienceBar;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
-@Mixin(JumpBar.class)
-public class JumpBarOffsetMixin {
+@Mixin(ExperienceBar.class)
+public class ExperienceBarOffsetMixin {
 
     @ModifyVariable(method = "renderBar", at = @At(value = "STORE"), ordinal = 1)
     public int offset1(int value) {

@@ -3,9 +3,14 @@
   "id": "bedrock_hotbar",
   "version": "${version}",
   "name": "Bedrock Hotbar",
-  "description": "",
-  "authors": [],
-  "contact": {},
+  "description": "Mod makes hotbar in Java Edition the same as in Bedrock Edition",
+  "authors": [
+    "BizarreCube"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/bedrock-hotbar",
+    "issues": "https://github.com/BizCub/bedrock-hotbar/issues"
+  },
   "license": "MIT",
   "icon": "icon.png",
   "environment": "client",

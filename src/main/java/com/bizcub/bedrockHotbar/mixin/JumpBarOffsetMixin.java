@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class JumpBarOffsetMixin {
 
     @ModifyVariable(method = "renderBar", at = @At(value = "STORE"), ordinal = 1)
-    public int offset1(int value) {
+    public int offsetMountJumpBar(int value) {
         return Offset.operation(value);
     }
 

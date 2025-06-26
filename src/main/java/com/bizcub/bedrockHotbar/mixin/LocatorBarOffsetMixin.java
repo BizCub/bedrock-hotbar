@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class LocatorBarOffsetMixin {
 
     @ModifyArg(method = "renderBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"), index = 3)
-    public int offset1(int value) {
+    public int offsetLocatorBar(int value) {
         return Offset.operation(value);
     }
 
     @ModifyVariable(method = "renderAddons", at = @At(value = "STORE"))
-    public int offset2(int value) {
+    public int offsetLocatorAddons(int value) {
         return Offset.operation(value);
     }
 

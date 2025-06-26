@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 @Mixin(InGameHud.class)
 public class InGameHudOffsetMixin {
 
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 23, ordinal = 0))
+    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
     public int resizeSelection(int value) {
         return 24;
     }
 
-    @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"), index = 2)
     public int offsetHotbar(int value) {
         return Offset.operation(value);
     }
@@ -31,18 +31,13 @@ public class InGameHudOffsetMixin {
         return Offset.operation(value);
     }
 
-    @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"), index = 2)
     public int offsetAir(int value) {
         return Offset.operation(value);
     }
 
-    @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"), index = 2)
     public int offsetExperienceBarBackground(int value) {
-        return Offset.operation(value);
-    }
-
-    @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIIIIIII)V"), index = 6)
-    public int offsetExperienceBarProgress(int value) {
         return Offset.operation(value);
     }
 
@@ -51,18 +46,13 @@ public class InGameHudOffsetMixin {
         return Offset.operation(value);
     }
 
-    @ModifyArg(method = "renderMountHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method = "renderMountHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"), index = 2)
     public int offsetMountHealth(int value) {
         return Offset.operation(value);
     }
 
-    @ModifyArg(method = "renderMountJumpBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIII)V"), index = 2)
+    @ModifyArg(method = "renderMountJumpBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawTexture(Lnet/minecraft/util/Identifier;IIIIII)V"), index = 2)
     public int offsetMountJumpBarBackground(int value) {
-        return Offset.operation(value);
-    }
-
-    @ModifyArg(method = "renderMountJumpBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lnet/minecraft/util/Identifier;IIIIIIII)V"), index = 6)
-    public int offsetMountJumpBarProgress(int value) {
         return Offset.operation(value);
     }
 

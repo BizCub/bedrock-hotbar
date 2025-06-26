@@ -4,11 +4,7 @@
   "package": "com.bizcub.bedrockHotbar.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "InGameHudOffsetMixin",
-    "BarOffsetMixin",
-    "ExperienceBarOffsetMixin",
-    "JumpBarOffsetMixin",
-    "LocatorBarOffsetMixin"
+    "InGameHudOffsetMixin"
   ],
   "client": [
   ],

@@ -3,7 +3,8 @@
   "minVersion": "0.8",
   "package": "com.bizcub.bedrockHotbar.mixin",
   "mixins": [
-    "InGameHudOffsetMixin"
+    "InGameHudOffsetMixin",
+    "RenderBottomOfTextureMixin"
   ],
   "client": [
   ],

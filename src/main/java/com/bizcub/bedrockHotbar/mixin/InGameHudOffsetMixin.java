@@ -4,17 +4,10 @@ import com.bizcub.bedrockHotbar.Offset;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 @Mixin(InGameHud.class)
 public class InGameHudOffsetMixin {
-
-    @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 23, ordinal = 0))
-    public int resizeSelection(int value) {
-        return 24;
-    }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"), index = 3)
     public int offsetHotbar(int value) {

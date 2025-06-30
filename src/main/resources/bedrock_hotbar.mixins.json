@@ -3,13 +3,14 @@
   "minVersion": "0.8",
   "package": "com.bizcub.bedrockHotbar.mixin",
   "mixins": [
-    "InGameHudOffsetMixin",
     "BarOffsetMixin",
     "ExperienceBarOffsetMixin",
+    "InGameHudOffsetMixin",
     "JumpBarOffsetMixin",
     "LocatorBarOffsetMixin"
   ],
   "client": [
+    "RenderBottomOfTextureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

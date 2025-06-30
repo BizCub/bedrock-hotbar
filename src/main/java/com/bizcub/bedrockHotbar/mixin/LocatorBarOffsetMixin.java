@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(LocatorBar.class)
-public class LocatorBarOffsetMixin {
+public abstract class LocatorBarOffsetMixin {
 
     @ModifyArg(method = "renderBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawGuiTexture(Lcom/mojang/blaze3d/pipeline/RenderPipeline;Lnet/minecraft/util/Identifier;IIII)V"), index = 3)
     public int offset1(int value) {

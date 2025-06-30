@@ -7,10 +7,10 @@
     "ExperienceBarOffsetMixin",
     "InGameHudOffsetMixin",
     "JumpBarOffsetMixin",
-    "LocatorBarOffsetMixin"
+    "LocatorBarOffsetMixin",
+    "RenderBottomOfTextureMixin"
   ],
   "client": [
-    "RenderBottomOfTextureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

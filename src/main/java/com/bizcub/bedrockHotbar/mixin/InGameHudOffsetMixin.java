@@ -12,47 +12,47 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 public class InGameHudOffsetMixin {
 
     @ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
-    public int resizeSelection(int value) {
+    private int resizeSelection(int value) {
         return 24;
     }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    public int offsetHotbar(int value) {
+    private int offsetHotbar(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderHotbar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHotbarItem(Lnet/minecraft/client/util/math/MatrixStack;IIFLnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/item/ItemStack;I)V"), index = 2)
-    public int offsetItem(int value) {
+    private int offsetItem(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;renderHealthBar(Lnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/entity/player/PlayerEntity;IIIIFIIIZ)V"), index = 3)
-    public int offsetHealth(int value) {
+    private int offsetHealth(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderStatusBars", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    public int offsetOther(int value) {
+    private int offsetOther(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    public int offsetExperienceBarBackground(int value) {
+    private int offsetExperienceBarBackground(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), index = 3)
-    public float offsetExperienceLevel(float value) {
+    private float offsetExperienceLevel(float value) {
         return Offset.operation((int) value);
     }
 
     @ModifyArg(method = "renderMountHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    public int offsetMountHealth(int value) {
+    private int offsetMountHealth(int value) {
         return Offset.operation(value);
     }
 
     @ModifyArg(method = "renderMountJumpBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/hud/InGameHud;drawTexture(Lnet/minecraft/client/util/math/MatrixStack;IIIIII)V"), index = 2)
-    public int offsetMountJumpBarBackground(int value) {
+    private int offsetMountJumpBarBackground(int value) {
         return Offset.operation(value);
     }
 

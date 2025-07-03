@@ -13,13 +13,24 @@
   },
   "license": "MIT",
   "icon": "icon.png",
-  "environment": "client",
-  "entrypoints": {},
+  "entrypoints": {
+    "client": [
+      "com.bizcub.bedrockHotbar.BedrockHotbar"
+    ],
+    "modmenu": [
+      "com.bizcub.bedrockHotbar.config.Offset"
+    ]
+  },
   "mixins": [
     "bedrock_hotbar.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=${minecraft_version}"
+    "minecraft": ">=${minecraft_version}",
+    "fabric-api": "*"
+  },
+  "recommends": {
+    "modmenu": "*",
+    "cloth-config": "*"
   }
 }

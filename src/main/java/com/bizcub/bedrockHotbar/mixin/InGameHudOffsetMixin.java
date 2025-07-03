@@ -1,6 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.config.Offset;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -58,5 +58,4 @@ public class InGameHudOffsetMixin {
     private int offsetMountJumpBarProgress(int value) {
         return Offset.operation(value);
     }
-
 }

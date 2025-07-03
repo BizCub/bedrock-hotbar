@@ -1,5 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
+import com.bizcub.bedrockHotbar.config.Offset;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +24,10 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(float tickDelta, DrawContext context, CallbackInfo ci) {
-        context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, context.getScaledWindowWidth() / 2 - 91 - 1 + this.getCameraPlayer().getInventory().selectedSlot * 20, context.getScaledWindowHeight() - 5, 24, 1);
+        int x = context.getScaledWindowWidth();
+        int y = context.getScaledWindowHeight();
+        int selectedSlot = this.getCameraPlayer().getInventory().selectedSlot;
+        y = Offset.operation(y);
+        context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
     }
-
 }

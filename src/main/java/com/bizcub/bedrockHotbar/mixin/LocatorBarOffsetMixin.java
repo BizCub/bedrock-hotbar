@@ -1,6 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.config.Offset;
 import net.minecraft.client.gui.hud.bar.LocatorBar;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,5 +19,4 @@ public class LocatorBarOffsetMixin {
     public int offsetLocatorAddons(int value) {
         return Offset.operation(value);
     }
-
 }

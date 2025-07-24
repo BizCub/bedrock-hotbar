@@ -1,36 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "bedrock_hotbar",
+  "id": "${id}",
   "version": "${version}",
-  "name": "Bedrock Hotbar",
-  "description": "Mod makes hotbar in Java Edition the same as in Bedrock Edition",
+  "name": "${name}",
+  "description": "${description}",
   "authors": [
-    "BizarreCube"
+    "Bizarre Cube"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/bedrock-hotbar",
-    "issues": "https://github.com/BizCub/bedrock-hotbar/issues"
+    "homepage": "https://modrinth.com/project/${modrinth}",
+    "issues": "https://github.com/BizCub/${github}/issues"
   },
   "license": "MIT",
   "icon": "icon.png",
   "entrypoints": {
     "client": [
-      "com.bizcub.bedrockHotbar.BedrockHotbar"
+      "com.bizcub.bedrockHotbar.platforms.Fabric"
     ],
     "modmenu": [
-      "com.bizcub.bedrockHotbar.config.Offset"
+      "com.bizcub.bedrockHotbar.config.ModMenu"
     ]
   },
   "mixins": [
-    "bedrock_hotbar.mixins.json"
-  ],
-  "depends": {
-    "fabricloader": ">=${loader_version}",
-    "minecraft": ">=${minecraft_version}",
-    "fabric-api": "*"
-  },
-  "recommends": {
-    "modmenu": "*",
-    "cloth-config": "*"
-  }
+    "${id}-common.mixins.json"
+  ]
 }

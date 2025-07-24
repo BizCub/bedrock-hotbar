@@ -1,0 +1,18 @@
+modLoader = "javafml"
+loaderVersion = "*"
+license = "MIT"
+
+[[mods]]
+modId = "${id}"
+version = "${version}"
+displayName = "${name}"
+authors = "Bizarre Cube"
+description = '''${description}'''
+logoFile = "icon.png"
+logoBlur = false
+updateJSONURL="https://api.modrinth.com/updates/${modrinth}/forge_updates.json"
+displayURL="https://modrinth.com/project/${modrinth}"
+issueTrackerURL="https://github.com/BizCub/${github}/issues"
+
+[[mixins]]
+config = "${id}-common.mixins.json"

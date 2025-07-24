@@ -1,18 +1,15 @@
+//? if fabric {
 package com.bizcub.bedrockHotbar.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.autoconfig.AutoConfig;
 
-public class Offset implements ModMenuApi {
+public class ModMenu implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> AutoConfig.getConfigScreen(ModConfig.class, parent).get();
-    }
-
-    public static int operation(int x) {
-        ModConfig config = ModConfig.getInstance();
-        return x -= config.offset;
+        return parent -> AutoConfig.getConfigScreen(Configs.class, parent).get();
     }
 }
+//?}

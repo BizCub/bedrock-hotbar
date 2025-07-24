@@ -1,8 +1,9 @@
 {
   "required": true,
-  "minVersion": "0.8",
   "package": "com.bizcub.bedrockHotbar.mixin",
   "mixins": [
+  ],
+  "client": [
     "BarOffsetMixin",
     "ExperienceBarOffsetMixin",
     "InGameHudOffsetMixin",
@@ -10,12 +11,7 @@
     "LocatorBarOffsetMixin",
     "RenderBottomOfTextureMixin"
   ],
-  "client": [
-  ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "overwrites": {
-    "requireAnnotations": true
   }
 }

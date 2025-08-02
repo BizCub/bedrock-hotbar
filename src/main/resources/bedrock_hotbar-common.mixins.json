@@ -5,10 +5,7 @@
   ],
   "client": [
     "BarOffsetMixin",
-    "ExperienceBarOffsetMixin",
     "InGameHudOffsetMixin",
-    "JumpBarOffsetMixin",
-    "LocatorBarOffsetMixin",
     "RenderBottomOfTextureMixin"
   ],
   "injectors": {

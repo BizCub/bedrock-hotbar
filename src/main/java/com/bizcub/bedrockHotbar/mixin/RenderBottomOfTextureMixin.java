@@ -1,7 +1,7 @@
 package com.bizcub.bedrockHotbar.mixin;
 
 //? if >=1.21.6 {
-import com.bizcub.bedrockHotbar.Offset;
+/*import com.bizcub.bedrockHotbar.Offset;
 import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -32,7 +32,7 @@ public abstract class RenderBottomOfTextureMixin {
     }
 }
 
-//?} elif 1.21.5 {
+*///?} elif 1.21.5 {
 /*import com.bizcub.bedrockHotbar.Offset;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -188,9 +188,9 @@ public abstract class RenderBottomOfTextureMixin {
 }
 
 *///?} elif <=1.20.1 {
-/*import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(InGameHud.class)
 public class RenderBottomOfTextureMixin {}
-*///?}
+//?}

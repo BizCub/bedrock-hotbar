@@ -1,6 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
-//? if >=1.20.5 && <=1.21.6 {
+//? if >=1.20.5 {
 /*import com.bizcub.bedrockHotbar.Offset;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;

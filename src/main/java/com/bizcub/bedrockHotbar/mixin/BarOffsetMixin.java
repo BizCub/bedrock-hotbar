@@ -2,14 +2,12 @@ package com.bizcub.bedrockHotbar.mixin;
 
 //? if >=1.21.6 {
 /*import com.bizcub.bedrockHotbar.Offset;
-import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.bar.Bar;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(Bar.class)
 public interface BarOffsetMixin {
@@ -19,9 +17,15 @@ public interface BarOffsetMixin {
         cir.setReturnValue(Offset.operation(cir.getReturnValue()));
     }
 
-    @Redirect(method = "drawExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
-    private static int offsetExperienceLevel(DrawContext instance) {
-        return Offset.operation(instance.getScaledWindowHeight()) - 3;
+    @ModifyArgs(method = "drawExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;IIIZ)V"))
+    private static void experienceLevel(Args args) {
+        int color = args.get(4);
+        if (color == -8323296) {
+            args.set(3, Offset.operation(args.get(3)) - 3);
+            args.set(5, true);
+        } else {
+            args.set(4, 0);
+        }
     }
 }
 

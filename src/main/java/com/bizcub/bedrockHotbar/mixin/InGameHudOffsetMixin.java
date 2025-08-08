@@ -5,8 +5,8 @@ package com.bizcub.bedrockHotbar.mixin;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 @Mixin(InGameHud.class)
 public class InGameHudOffsetMixin {
@@ -75,23 +75,28 @@ public class InGameHudOffsetMixin {
         return Offset.operation(instance.getScaledWindowHeight());
     }
 
-    @Redirect(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
-    private int offsetExperienceLevel(DrawContext instance) {
-        return Offset.operation(instance.getScaledWindowHeight() - 3);
+    @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"))
+    private static void experienceLevel(Args args) {
+        int color = args.get(4);
+        if (color != 0) {
+            args.set(3, Offset.operation(args.get(3)) - 3);
+            args.set(5, true);
+        } else {
+            args.set(3, -10);
+        }
     }
     //?}
 }
 
 *///?} elif >=1.19.4 && <=1.20.4 {
 import com.bizcub.bedrockHotbar.Offset;
+import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.util.math.MatrixStack;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.*;
 
 @Mixin(InGameHud.class)
 public class InGameHudOffsetMixin {
@@ -135,9 +140,42 @@ public class InGameHudOffsetMixin {
         return Offset.operation(scaledHeight);
     }
 
-    @Redirect(method = "renderExperienceBar", at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/hud/InGameHud;scaledHeight:I", opcode = Opcodes.GETFIELD, ordinal = 1))
-    private int offsetExperienceLevel(InGameHud instance) {
-        return Offset.operation(scaledHeight) - 3;
+    //? if >=1.20.2 {
+    /*@ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"))
+    private static void experienceLevel(Args args) {
+        int color = args.get(4);
+        if (color != 0) {
+            args.set(3, Offset.operation(args.get(3)) - 3);
+            args.set(5, true);
+        } else {
+            args.set(3, -10);
+        }
     }
+    *///?} elif >=1.19.4 {
+    @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 0))
+    private static int experienceLevel0(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
+        return instance.drawWithShadow(matrices, string, k, -10, 0);
+    }
+
+    @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 1))
+    private static int experienceLevel1(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
+        return instance.drawWithShadow(matrices, string, k, -10, 0);
+    }
+
+    @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 2))
+    private static int experienceLevel2(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
+        return instance.drawWithShadow(matrices, string, k, -10, 0);
+    }
+
+    @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 3))
+    private static int experienceLevel3(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
+        return instance.drawWithShadow(matrices, string, k, -10, 0);
+    }
+
+    @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 4))
+    private static int experienceLevel4(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
+        return instance.drawWithShadow(matrices, string, k, Offset.operation((int) l) - 3, color);
+    }
+    //?}
 }
 //?}

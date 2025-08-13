@@ -10,9 +10,8 @@ public class Fabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        if (Compat.isModLoaded(Constants.MOD_MENU_ID)) {
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
             Configs.init();
         }
     }
-}
-//?}
+}//?}

@@ -11,5 +11,4 @@ public class ModMenu implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return parent -> AutoConfig.getConfigScreen(Configs.class, parent).get();
     }
-}
-//?}
+}//?}

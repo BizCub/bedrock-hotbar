@@ -106,7 +106,13 @@ publishMods {
 
 java {
     withSourcesJar()
-    val java = if (stonecutter.eval(minecraft, ">=1.20.5")) JavaVersion.VERSION_21 else JavaVersion.VERSION_17
+    val java = if (stonecutter.eval(minecraft, ">=1.20.5")) {
+        JavaVersion.VERSION_21
+    } else if (stonecutter.eval(minecraft, ">=1.18")) {
+        JavaVersion.VERSION_17
+    } else if (stonecutter.eval(minecraft, ">=1.17")) {
+        JavaVersion.VERSION_16
+    } else JavaVersion.VERSION_1_8
     targetCompatibility = java
     sourceCompatibility = java
 }
@@ -153,31 +159,12 @@ if (stonecutter.current.isActive) {
 
 tasks.processResources {
     properties(
-        listOf("fabric.mod.json"),
-        "id" to mod.id,
-        "name" to mod.name,
-        "description" to mod.description,
-        "version" to mod.version,
-        "modrinth" to mod.modrinth,
-        "github" to mod.github
-    )
-    properties(
-        listOf("META-INF/mods.toml", "pack.mcmeta"),
-        "id" to mod.id,
-        "name" to mod.name,
-        "description" to mod.description,
-        "version" to mod.version,
+        listOf("fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
         //"minecraft" to mod.prop("mc_dep_forgelike"),
-        "modrinth" to mod.modrinth,
-        "github" to mod.github
-    )
-    properties(
-        listOf("META-INF/neoforge.mods.toml", "pack.mcmeta"),
         "id" to mod.id,
         "name" to mod.name,
         "description" to mod.description,
         "version" to mod.version,
-        //"minecraft" to mod.prop("mc_dep_forgelike"),
         "modrinth" to mod.modrinth,
         "github" to mod.github
     )

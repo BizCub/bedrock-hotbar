@@ -15,4 +15,4 @@ displayURL="https://modrinth.com/project/${modrinth}"
 issueTrackerURL="https://github.com/BizCub/${github}/issues"
 
 [[mixins]]
-config = "${id}-common.mixins.json"
+config = "${mixin}-common.mixins.json"

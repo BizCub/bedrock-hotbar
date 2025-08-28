@@ -13,6 +13,9 @@ public class Configs implements ConfigData {
     @ConfigEntry.BoundedDiscrete(min = Constants.MIN_OFFSET, max = Constants.MAX_OFFSET)
     public int offset = Constants.DEF_OFFSET;
 
+    @ConfigEntry.Gui.Tooltip
+    public boolean renderTexture = true;
+
     public static Configs getInstance() {
         return AutoConfig.getConfigHolder(Configs.class).getConfig();
     }

@@ -1,1 +1,1 @@
-* Experience level is now displayed with a shadow instead of an outline
+* Added option to disable rendering of the bottom part of the hotbar selection texture

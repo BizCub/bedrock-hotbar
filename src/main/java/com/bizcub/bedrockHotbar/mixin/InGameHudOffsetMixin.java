@@ -47,7 +47,7 @@ public class InGameHudOffsetMixin {
     }//?}
 }
 
-*///?} elif >=1.19.4 && <=1.20.4 {
+*///?} elif >=1.16.5 && <=1.20.4 {
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import org.objectweb.asm.Opcodes;
@@ -82,7 +82,7 @@ public class InGameHudOffsetMixin {
         }
     }
 
-    *///?} elif >=1.19.4 {
+    *///?} elif >=1.16.5 {
     @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"), slice = @Slice(
             from = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 0),
             to = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I", ordinal = 3)))

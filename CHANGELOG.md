@@ -1,1 +1,1 @@
-* Added option to disable rendering of the bottom part of the hotbar selection texture
+* The list of available versions has been expanded

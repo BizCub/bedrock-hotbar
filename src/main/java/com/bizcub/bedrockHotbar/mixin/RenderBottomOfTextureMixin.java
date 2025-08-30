@@ -1,6 +1,8 @@
 package com.bizcub.bedrockHotbar.mixin;
 
+import com.bizcub.bedrockHotbar.Constants;
 import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,12 +28,14 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (Configs.getInstance().renderTexture) {
-            int x = context.getScaledWindowWidth();
-            int y = context.getScaledWindowHeight();
-            int selectedSlot = this.getCameraPlayer().getInventory().getSelectedSlot();
-            y = Offset.operation(y);
-            context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
+            if (Configs.getInstance().renderTexture) {
+                int x = context.getScaledWindowWidth();
+                int y = context.getScaledWindowHeight();
+                int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
+                y = Offset.operation(y);
+                context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+            }
         }
     }
 }
@@ -53,16 +57,18 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (Configs.getInstance().renderTexture) {
-            int x = context.getScaledWindowWidth();
-            int y = context.getScaledWindowHeight();
-            //? if 1.21.5 {
-            /^int selectedSlot = this.getCameraPlayer().getInventory().getSelectedSlot();
-            ^///?} else {
-            int selectedSlot = this.getCameraPlayer().getInventory().selectedSlot;
-            //?}
-            y = Offset.operation(y);
-            context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
+            if (Configs.getInstance().renderTexture) {
+                int x = context.getScaledWindowWidth();
+                int y = context.getScaledWindowHeight();
+                //? if 1.21.5 {
+                /^int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
+                ^///?} else {
+                int selectedSlot = getCameraPlayer().getInventory().selectedSlot;
+                //?}
+                y = Offset.operation(y);
+                context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+            }
         }
     }
 }
@@ -83,12 +89,14 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (Configs.getInstance().renderTexture) {
-            int x = context.getScaledWindowWidth();
-            int y = context.getScaledWindowHeight();
-            int selectedSlot = this.getCameraPlayer().getInventory().selectedSlot;
-            y = Offset.operation(y);
-            context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
+            if (Configs.getInstance().renderTexture) {
+                int x = context.getScaledWindowWidth();
+                int y = context.getScaledWindowHeight();
+                int selectedSlot = getCameraPlayer().getInventory().selectedSlot;
+                y = Offset.operation(y);
+                context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+            }
         }
     }
 }
@@ -108,12 +116,14 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(DrawContext context, float tickDelta, CallbackInfo ci) {
-        if (Configs.getInstance().renderTexture) {
-            int x = context.getScaledWindowWidth();
-            int y = context.getScaledWindowHeight();
-            int selectedSlot = this.getCameraPlayer().getInventory().selectedSlot;
-            y = Offset.operation(y);
-            context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
+            if (Configs.getInstance().renderTexture) {
+                int x = context.getScaledWindowWidth();
+                int y = context.getScaledWindowHeight();
+                int selectedSlot = getCameraPlayer().getInventory().selectedSlot;
+                y = Offset.operation(y);
+                context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+            }
         }
     }
 }
@@ -133,12 +143,14 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     private void renderTexture(float tickDelta, DrawContext context, CallbackInfo ci) {
-        if (Configs.getInstance().renderTexture) {
-            int x = context.getScaledWindowWidth();
-            int y = context.getScaledWindowHeight();
-            int selectedSlot = this.getCameraPlayer().getInventory().selectedSlot;
-            y = Offset.operation(y);
-            context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID)) {
+            if (Configs.getInstance().renderTexture) {
+                int x = context.getScaledWindowWidth();
+                int y = context.getScaledWindowHeight();
+                int selectedSlot = getCameraPlayer().getInventory().selectedSlot;
+                y = Offset.operation(y);
+                context.drawGuiTexture(HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+            }
         }
     }
 }

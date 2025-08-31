@@ -27,4 +27,4 @@ stonecutter {
     create(rootProject)
 }
 
-rootProject.name = "Bedrock Hotbar"
+rootProject.name = settings.extra["mod.name"] as String

@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
   "id": "${id}",
-  "version": "${version}",
   "name": "${name}",
+  "version": "${version}",
   "description": "${description}",
+  "license": "${license}",
+  "icon": "icon.png",
   "authors": [
-    "Bizarre Cube"
+    "${author}"
   ],
   "contact": {
     "homepage": "https://modrinth.com/project/${modrinth}",
     "issues": "https://github.com/BizCub/${github}/issues"
   },
-  "license": "MIT",
-  "icon": "icon.png",
   "entrypoints": {
     "client": [
       "com.bizcub.bedrockHotbar.platforms.Fabric"
@@ -22,6 +22,6 @@
     ]
   },
   "mixins": [
-    "${mixin}-common.mixins.json"
+    "${mixin}.mixins.json"
   ]
 }

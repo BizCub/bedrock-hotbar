@@ -1,52 +1,38 @@
-import java.util.*
-
 plugins {
-    id("dev.architectury.loom")
-    id("architectury-plugin")
-    id("me.modmuss50.mod-publish-plugin")
-    id("com.github.johnrengelman.shadow")
+    id("dev.architectury.loom") version "1.11-SNAPSHOT"
+    id("architectury-plugin") version "3.4-SNAPSHOT"
+    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
 }
 
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
-version = "${mod.version}+${mod.mc_start}"
-group = mod.group
-base {
-    archivesName.set("$mixinId-$loader")
-}
+var mcStart = findProperty("mod.mc_start").toString()
+if (mcStart == "null") mcStart = minecraft
+var mcEnd = findProperty("mod.mc_end").toString()
+if (mcEnd == "null") mcEnd = minecraft
+var neoPatch = findProperty("deps.neoforge_patch").toString()
+if (neoPatch == "null") neoPatch = "1.21+build.4"
+
+base.archivesName.set("$mixinId-$loader")
+version = "${mod.version}+$mcStart"
 
 architectury.common(stonecutter.tree.branches.mapNotNull {
     if (stonecutter.current.project !in it) null
-    else it.prop("loom.platform")
+    else prop("loom.platform")
 })
 
-repositories {
-    maven("https://maven.neoforged.net/releases/")
-    maven("https://maven.shedaniel.me/")
-    maven("https://maven.terraformersmc.com/releases/")
-}
-
-dependencies {
-    minecraft("com.mojang:minecraft:$minecraft")
-    //mappings(loom.officialMojangMappings())
-
-    if (loader == "fabric") {
-        modImplementation("net.fabricmc:fabric-loader:0.16.14")
-        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-        modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")
-        modApi("com.terraformersmc:modmenu:${mod.modmenu}")
-    }
-    if (loader == "neoforge") {
-        "neoForge"("net.neoforged:neoforge:${mod.dep("neoforge_loader")}")
-        mappings(loom.layered {
-            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
-            mod.dep("neoforge_patch").takeUnless { it.startsWith('[') }?.let {
-                mappings("dev.architectury:yarn-mappings-patch-neoforge:$it")
-            }
-        })
-        modApi("me.shedaniel.cloth:cloth-config-neoforge:${mod.cloth_config}")
+stonecutter {
+    swaps["mod_id"] = "\"${prop("mod.id")}\""
+    constants.match(loader, "fabric", "forge", "neoforge")
+    java {
+        val java = if (stonecutter.eval(minecraft, ">=1.20.5")) JavaVersion.VERSION_21
+        else if (stonecutter.eval(minecraft, ">=1.18")) JavaVersion.VERSION_17
+        else if (stonecutter.eval(minecraft, ">=1.17")) JavaVersion.VERSION_16
+        else JavaVersion.VERSION_1_8
+        targetCompatibility = java
+        sourceCompatibility = java
     }
 }
 
@@ -56,92 +42,55 @@ loom {
             options.put("mark-corresponding-synthetics", "1")
         }
     }
+    if (loader == "forge") forge.mixinConfigs("$mixinId.mixins.json")
 }
 
-val localProperties = Properties()
-val localPropertiesFile = rootProject.file("local.properties")
-if (localPropertiesFile.exists()) {
-    localProperties.load(localPropertiesFile.inputStream())
+repositories {
+    maven("https://maven.neoforged.net/releases/")
+    maven("https://maven.shedaniel.me/")
+    maven("https://maven.terraformersmc.com/releases/")
 }
 
-publishMods {
-    file = rootProject.file("build/libs/${mod.version}/$loader/$mixinId-$loader-${mod.version}+${mod.mc_start}.jar")
-    displayName = "${mod.name} ${loader.capitalize()} ${mod.mc_start} v${mod.version}"
-    changelog = rootProject.file("CHANGELOG.md").readText()
-    version = mod.version
-    type = STABLE
-    modLoaders.add(loader)
-    if (loader == "fabric") modLoaders.add("quilt")
+dependencies {
+    minecraft("com.mojang:minecraft:$minecraft")
 
-    modrinth {
-        projectId = mod.modrinth
-        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
-        if (loader == "fabric") optional("modmenu", "cloth-config")
-        if (loader == "neoforge") optional("cloth-config")
-        minecraftVersionRange {
-            start = mod.mc_start
-            end = mod.mc_end
-            includeSnapshots = true
-        }
+    if (loader == "fabric") {
+        modImplementation("net.fabricmc:fabric-loader:0.17.2")
+        mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+        modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")
+        modApi("com.terraformersmc:modmenu:${mod.modmenu}")
     }
-
-    curseforge {
-        projectId = mod.curseforge
-        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
-        if (loader == "fabric") optional("modmenu", "cloth-config")
-        if (loader == "neoforge") optional("cloth-config")
-        minecraftVersionRange {
-            start = mod.mc_start
-            end = mod.mc_end
-        }
-    }
-
-    github {
-        accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        repository = "BizCub/${mod.github}"
-        commitish = "master"
-        tagName = "v${mod.version}-" + loader + "+${minecraft}"
+    if (loader == "neoforge") {
+        val neoVers = minecraft.substring(2)
+        val neoLoader = mod.dep("neoforge_loader")
+        "neoForge"("net.neoforged:neoforge:${if (neoVers.contains(".")) "$neoVers.$neoLoader" else "$neoVers.0.$neoLoader"}")
+        mappings(loom.layered {
+            mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
+            mappings("dev.architectury:yarn-mappings-patch-neoforge:$neoPatch")
+        })
+        modApi("me.shedaniel.cloth:cloth-config-neoforge:${mod.cloth_config}")
     }
 }
 
-java {
-    withSourcesJar()
-    val java = if (stonecutter.eval(minecraft, ">=1.20.5")) {
-        JavaVersion.VERSION_21
-    } else if (stonecutter.eval(minecraft, ">=1.18")) {
-        JavaVersion.VERSION_17
-    } else if (stonecutter.eval(minecraft, ">=1.17")) {
-        JavaVersion.VERSION_16
-    } else JavaVersion.VERSION_1_8
-    targetCompatibility = java
-    sourceCompatibility = java
-}
-
-val shadowBundle: Configuration by configurations.creating {
-    isCanBeConsumed = false
-    isCanBeResolved = true
-}
-
-tasks.shadowJar {
-    configurations = listOf(shadowBundle)
-    archiveClassifier = "dev-shadow"
-}
-
-tasks.remapJar {
-    input = tasks.shadowJar.get().archiveFile
-    archiveClassifier = null
-    dependsOn(tasks.shadowJar)
-}
-
-tasks.jar {
-    archiveClassifier = "dev"
+tasks.processResources {
+    properties(
+        listOf("fabric.mod.json", "META-INF/mods.toml", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
+        "mixin" to mixinId,
+        "id" to mod.id,
+        "name" to mod.name,
+        "description" to mod.description,
+        "version" to mod.version,
+        "modrinth" to mod.modrinth,
+        "github" to mod.github,
+        "author" to "Bizarre Cube",
+        "license" to "MIT"
+    )
 }
 
 val buildAndCollect = tasks.register<Copy>("buildAndCollect") {
-    group = "versioned"
-    description = "Must run through 'chiseledBuild'"
-    from(tasks.remapJar.get().archiveFile, tasks.remapSourcesJar.get().archiveFile)
-    into(rootProject.layout.buildDirectory.file("libs/${mod.version}/$loader"))
+    group = "build"
+    from(tasks.remapJar.get().archiveFile)
+    into(rootProject.layout.buildDirectory.file("libs/${mod.version}"))
     dependsOn("build")
 }
 
@@ -157,21 +106,42 @@ if (stonecutter.current.isActive) {
     }
 }
 
-tasks.processResources {
-    properties(
-        listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "pack.mcmeta"),
-        //"minecraft" to mod.prop("mc_dep_forgelike"),
-        "mixin" to mixinId,
-        "id" to mod.id,
-        "name" to mod.name,
-        "description" to mod.description,
-        "version" to mod.version,
-        "modrinth" to mod.modrinth,
-        "github" to mod.github
-    )
-}
+publishMods {
+    file = tasks.remapJar.get().archiveFile
+    displayName = "${mod.name} ${loader.upperCaseFirst()} $mcStart v${mod.version}"
+    changelog = rootProject.file("CHANGELOG.md").readText()
+    version = mod.version
+    type = STABLE
+    modLoaders.add(loader)
+    if (loader == "fabric") modLoaders.add("quilt")
 
-tasks.build {
-    group = "versioned"
-    description = "Must run through 'chiseledBuild'"
+    modrinth {
+        projectId = mod.modrinth
+        accessToken = file("C:\\Tokens\\modrinth.txt").readText()
+        if (loader == "fabric") optional("modmenu")
+        optional("cloth-config")
+        minecraftVersionRange {
+            start = mcStart
+            end = mcEnd
+            includeSnapshots = true
+        }
+    }
+
+    curseforge {
+        projectId = mod.curseforge
+        accessToken = file("C:\\Tokens\\curseforge.txt").readText()
+        if (loader == "fabric") optional("modmenu")
+        optional("cloth-config")
+        minecraftVersionRange {
+            start = mcStart
+            end = mcEnd
+        }
+    }
+
+    github {
+        accessToken = file("C:\\Tokens\\github.txt").readText()
+        repository = "BizCub/${mod.github}"
+        commitish = "master"
+        tagName = "v${mod.version}-$loader+$mcStart"
+    }
 }

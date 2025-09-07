@@ -11,20 +11,19 @@ pluginManagement {
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version "0.5"
+    id("dev.kikugie.stonecutter") version "0.7.10"
 }
 
 stonecutter {
-    centralScript = "build.gradle.kts"
     kotlinController = true
-    shared {
+    centralScript = "build.gradle.kts"
+    create(rootProject) {
         fun mc(loader: String, vararg versions: String) {
-            for (version in versions) vers("$version-$loader", version)
+            for (version in versions) version("$version-$loader", version)
         }
         mc("fabric", "1.19.4", "1.16.5", "1.20.1", "1.20.2", "1.20.5", "1.21", "1.21.2", "1.21.5", "1.21.6")
         mc("neoforge", "1.21", "1.21.2", "1.21.5", "1.21.6")
     }
-    create(rootProject)
 }
 
-rootProject.name = settings.extra["mod.name"] as String
+rootProject.name = extra["mod.name"] as String

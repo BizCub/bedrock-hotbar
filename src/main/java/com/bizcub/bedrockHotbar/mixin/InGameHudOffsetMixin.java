@@ -42,15 +42,15 @@ public class InGameHudOffsetMixin {
     @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
         int color = args.get(4);
-        int offset = Offset.operation(args.get(3));
+        int offset = Offset.operation(args.get(3)) - 3;
         boolean number = color != 0;
 
-        if (number) args.set(3, offset - 3);
+        if (number) args.set(3, offset);
         else args.set(3, -10);
         args.set(5, true);
 
         if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID) && !(Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
-            if (!number) args.set(3, offset - 3);
+            if (!number) args.set(3, offset);
             args.set(5, false);
         }
     }//?}
@@ -77,29 +77,31 @@ public class InGameHudOffsetMixin {
         return 24;
     }//?}
 
-    //? >=1.20.1 {
+    //? >=1.20 {
     /*@ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
         int color = args.get(4);
         int offset = args.get(3);
+        offset -= 3;
         boolean number = color != 0;
 
-        if (number) args.set(3, offset - 3);
+        if (number) args.set(3, offset);
         else args.set(3, -10);
         args.set(5, true);
 
         if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID) && !(Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
-            if (!number) args.set(3, offset - 3);
+            if (!number) args.set(3, offset);
             args.set(5, false);
         }
     }*///?}
 
-    //? <=1.20 {
+    //? <=1.19.4 {
     @Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"))
     private static int experienceLevel(TextRenderer instance, MatrixStack matrices, String string, float k, float l, int color) {
-        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
-            if (color != 0) return instance.drawWithShadow(matrices, string, k, (int) l - 3, color);
-            else return instance.draw(matrices, string, k, -10, color);
-        } return instance.draw(matrices, string, k, (int) l - 3, color);
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline)) {
+            return instance.draw(matrices, string, k, (int) l - 3, color);
+        }
+        if (color != 0) return instance.drawWithShadow(matrices, string, k, (int) l - 3, color);
+        else return instance.draw(matrices, string, k, -10, color);
     }//?}
 }//?}

@@ -1,8 +1,6 @@
 {
   "required": true,
   "package": "com.bizcub.bedrockHotbar.mixin",
-  "mixins": [
-  ],
   "client": [
     "BarOffsetMixin",
     "InGameHudOffsetMixin",

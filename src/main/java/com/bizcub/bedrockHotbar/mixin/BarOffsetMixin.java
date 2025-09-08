@@ -2,8 +2,11 @@ package com.bizcub.bedrockHotbar.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-//? if >=1.21.6 {
-/*import com.bizcub.bedrockHotbar.Offset;
+//? >=1.21.6 {
+/*import com.bizcub.bedrockHotbar.Constants;
+import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.config.Compat;
+import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraft.client.gui.hud.bar.Bar;
 import net.minecraft.client.util.Window;
 import org.spongepowered.asm.mixin.injection.*;
@@ -21,11 +24,16 @@ public interface BarOffsetMixin {
     @ModifyArgs(method = "drawExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Lnet/minecraft/text/Text;IIIZ)V"))
     private static void experienceLevel(Args args) {
         int color = args.get(4);
-        if (color == -8323296) {
-            args.set(3, Offset.operation(args.get(3)) - 3);
-            args.set(5, true);
-        } else {
-            args.set(4, 0);
+        int offset = Offset.operation(args.get(3));
+        boolean number = color == -8323296;
+
+        if (number) args.set(3, offset - 3);
+        else args.set(3, -10);
+        args.set(5, true);
+
+        if (Compat.isModLoaded(Constants.CLOTH_CONFIG_ID) && !(Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
+            if (!number) args.set(3, offset - 3);
+            args.set(5, false);
         }
     }
 }

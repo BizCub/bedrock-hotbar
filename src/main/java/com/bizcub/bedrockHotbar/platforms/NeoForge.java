@@ -1,4 +1,4 @@
-//? if neoforge {
+//? neoforge {
 /*package com.bizcub.bedrockHotbar.platforms;
 
 import com.bizcub.bedrockHotbar.Constants;

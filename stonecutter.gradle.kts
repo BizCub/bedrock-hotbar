@@ -5,7 +5,7 @@ plugins {
     id("dev.kikugie.stonecutter")
     id("org.jetbrains.gradle.plugin.idea-ext") version "1.3"
 }
-stonecutter active "1.16.5-fabric"
+stonecutter active "1.19.4-fabric"
 
 idea.project.settings {
     runConfigurations {

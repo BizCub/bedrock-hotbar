@@ -1,4 +1,4 @@
-//? if fabric {
+//? fabric {
 package com.bizcub.bedrockHotbar.platforms;
 
 import com.bizcub.bedrockHotbar.Constants;

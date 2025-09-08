@@ -1,4 +1,4 @@
-//? if fabric {
+//? fabric {
 package com.bizcub.bedrockHotbar.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;

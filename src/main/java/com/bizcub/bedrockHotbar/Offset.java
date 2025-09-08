@@ -2,6 +2,7 @@ package com.bizcub.bedrockHotbar;
 
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
+
 public class Offset {
 
     public static int operation(int x) {

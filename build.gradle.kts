@@ -123,6 +123,7 @@ publishMods {
         accessToken = file("C:\\Tokens\\modrinth.txt").readText()
         if (loader == "fabric") optional("modmenu")
         optional("cloth-config")
+        optional("appleskin")
         minecraftVersionRange {
             start = mcStart
             end = mcEnd
@@ -135,6 +136,7 @@ publishMods {
         accessToken = file("C:\\Tokens\\curseforge.txt").readText()
         if (loader == "fabric") optional("modmenu")
         optional("cloth-config")
+        optional("appleskin")
         minecraftVersionRange {
             start = mcStart
             end = mcEnd

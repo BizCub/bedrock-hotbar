@@ -6,6 +6,9 @@
     "InGameHudOffsetMixin",
     "RenderBottomOfTextureMixin"
   ],
+  "mixins": [
+    "AppleskinCompat"
+  ],
   "injectors": {
     "defaultRequire": 1
   }

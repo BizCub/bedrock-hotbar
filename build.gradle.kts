@@ -49,13 +49,16 @@ repositories {
     maven("https://maven.neoforged.net/releases/")
     maven("https://maven.shedaniel.me/")
     maven("https://maven.terraformersmc.com/releases/")
+    maven("https://maven.ryanliptak.com/")
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:$minecraft")
+    modApi("squeek.appleskin:appleskin-$loader:${prop("mod.appleskin")}")
 
     if (loader == "fabric") {
         modImplementation("net.fabricmc:fabric-loader:0.17.2")
+        modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("mod.fabric_api")}")
         mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
         modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")
         modApi("com.terraformersmc:modmenu:${mod.modmenu}")

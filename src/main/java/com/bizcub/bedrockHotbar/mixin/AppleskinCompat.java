@@ -33,4 +33,8 @@ public class AppleskinCompat {
     private static int drawHealthOverlay(int value) {
         return Offset.operation(value);
     }
-}//?}
+}
+
+//?} else {
+/*@Mixin(HUDOverlayHandler.class)
+public class AppleskinCompat {}*///?}

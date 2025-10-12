@@ -1,16 +1,16 @@
 plugins {
-    id("dev.architectury.loom") version "1.11-SNAPSHOT"
-    id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.4"
+    id("dev.architectury.loom") version "1.+"
+    id("architectury-plugin") version "3.+"
+    id("me.modmuss50.mod-publish-plugin") version "0.8.+"
 }
 
 val minecraft = stonecutter.current.version
 val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
-var mcStart = findProperty("mod.mc_start").toString()
+var mcStart = findProperty("publish.mc_start").toString()
 if (mcStart == "null") mcStart = minecraft
-var mcEnd = findProperty("mod.mc_end").toString()
+var mcEnd = findProperty("publish.mc_end").toString()
 if (mcEnd == "null") mcEnd = minecraft
 var neoPatch = findProperty("deps.neoforge_patch").toString()
 if (neoPatch == "null") neoPatch = "1.21+build.4"
@@ -57,7 +57,7 @@ dependencies {
     modApi("squeek.appleskin:appleskin-$loader:${prop("mod.appleskin")}")
 
     if (loader == "fabric") {
-        modImplementation("net.fabricmc:fabric-loader:0.17.2")
+        modImplementation("net.fabricmc:fabric-loader:latest.release")
         modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("mod.fabric_api")}")
         mappings("net.fabricmc:yarn:$minecraft+build.${mod.dep("yarn_build")}:v2")
         modApi("me.shedaniel.cloth:cloth-config-fabric:${mod.cloth_config}")

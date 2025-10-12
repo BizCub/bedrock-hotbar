@@ -19,7 +19,7 @@ public class AppleskinCompat {
 }
 
 *///?} <=1.20.4 {
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
+/*import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 @Mixin(HUDOverlayHandler.class)
 public class AppleskinCompat {
@@ -35,6 +35,6 @@ public class AppleskinCompat {
     }
 }
 
-//?} else {
-/*@Mixin(HUDOverlayHandler.class)
-public class AppleskinCompat {}*///?}
+*///?} else {
+@Mixin(HUDOverlayHandler.class)
+public class AppleskinCompat {}//?}

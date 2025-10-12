@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 //? >=1.21.2 {
-/*/^? >=1.21.6^/ /^import net.minecraft.client.gl.RenderPipelines;^/
+/*? >=1.21.6*/ import net.minecraft.client.gl.RenderPipelines;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderLayer;
@@ -33,15 +33,15 @@ public abstract class RenderBottomOfTextureMixin {
 
         int x = context.getScaledWindowWidth();
         int y = context.getScaledWindowHeight();
-        /^? >=1.21.5^/ /^int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();^/
-        /^? <= 1.21.4^/ int selectedSlot = getCameraPlayer().getInventory().selectedSlot;
+        /*? >=1.21.5*/ int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
+        /*? <= 1.21.4*/ /*int selectedSlot = getCameraPlayer().getInventory().selectedSlot;*/
         y = Offset.operation(y);
-        /^? >=1.21.6^/ /^context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);^/
-        /^? <=1.21.5^/ context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        /*? >=1.21.6*/ context.drawGuiTexture(RenderPipelines.GUI_TEXTURED, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        /*? <=1.21.5*/ /*context.drawGuiTexture(RenderLayer::getGuiTextured, HOTBAR_SELECTION_TEXTURE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);*/
     }
 }
 
-*///?} >=1.20.2 && <=1.21.1 {
+//?} >=1.20.2 && <=1.21.1 {
 /*import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.render.RenderTickCounter;
@@ -69,5 +69,5 @@ public abstract class RenderBottomOfTextureMixin {
 }
 
 *///?} <=1.20.1 {
-@Mixin(InGameHud.class)
-public class RenderBottomOfTextureMixin {}//?}
+/*@Mixin(InGameHud.class)
+public class RenderBottomOfTextureMixin {}*///?}

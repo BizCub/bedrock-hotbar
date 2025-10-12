@@ -5,7 +5,7 @@ import com.bizcub.bedrockHotbar.config.Compat;
 import org.spongepowered.asm.mixin.Mixin;
 
 //? >=1.21.6 {
-/*import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.Offset;
 import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraft.client.gui.hud.bar.Bar;
 import net.minecraft.client.util.Window;
@@ -37,8 +37,8 @@ public interface BarOffsetMixin {
     }
 }
 
-*///?} <=1.21.5 {
-import net.minecraft.client.gui.hud.InGameHud;
+//?} <=1.21.5 {
+/*import net.minecraft.client.gui.hud.InGameHud;
 
 @Mixin(InGameHud.class)
-public interface BarOffsetMixin {}//?}
+public interface BarOffsetMixin {}*///?}

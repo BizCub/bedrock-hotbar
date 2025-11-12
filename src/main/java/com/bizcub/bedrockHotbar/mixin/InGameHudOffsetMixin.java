@@ -4,25 +4,55 @@ import com.bizcub.bedrockHotbar.Constants;
 import com.bizcub.bedrockHotbar.Offset;
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
-import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-//? >=1.20.5 {
-import net.minecraft.client.gui.DrawContext;
+//? >=1.21.11 {
+import net.minecraft.client.gui.Gui;
+
+@Mixin(Gui.class)
+public class InGameHudOffsetMixin {
+
+    @Redirect(method = {"renderItemHotbar", "renderSelectedItemName", "renderPlayerHealth", "renderVehicleHealth"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
+    private int offsetHotbar(GuiGraphics instance) {
+        return Offset.operation(instance.guiHeight());
+    }
+
+//    //? neoforge {
+//    /*@Redirect(method = {"renderHotbarVanilla", "renderSelectedItemName", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+//    private int offsetHotbar(DrawContext instance) {
+//        return Offset.operation(instance.getScaledWindowHeight());
+//    }
+//
+//    *///?} fabric {
+//    @Redirect(method = {"renderHotbar", "renderHeldItemTooltip", "renderStatusBars"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+//    private int offsetHotbar(DrawContext instance) {
+//        return Offset.operation(instance.getScaledWindowHeight());
+//    }//?}
+//
+//    @Redirect(method = "renderMountHealth", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+//    private int offsetMountHealth(DrawContext instance) {
+//        return Offset.operation(instance.getScaledWindowHeight());
+//    }
+}
+
+//?} >=1.20.5 {
+/*import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.InGameHud;
 
 @Mixin(InGameHud.class)
 public class InGameHudOffsetMixin {
 
     //? neoforge {
-    /*@Redirect(method = {"renderHotbarVanilla", "renderSelectedItemName", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+    /^@Redirect(method = {"renderHotbarVanilla", "renderSelectedItemName", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
     private int offsetHotbar(DrawContext instance) {
         return Offset.operation(instance.getScaledWindowHeight());
     }
 
-    *///?} fabric {
+    ^///?} fabric {
     @Redirect(method = {"renderHotbar", "renderHeldItemTooltip", "renderStatusBars"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
     private int offsetHotbar(DrawContext instance) {
         return Offset.operation(instance.getScaledWindowHeight());
@@ -34,7 +64,7 @@ public class InGameHudOffsetMixin {
     }
 
     //? <=1.21.5 {
-    /*@Redirect(method = {"renderMountJumpBar", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+    /^@Redirect(method = {"renderMountJumpBar", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
     private int offsetMountJumpBar(DrawContext instance) {
         return Offset.operation(instance.getScaledWindowHeight());
     }
@@ -53,11 +83,12 @@ public class InGameHudOffsetMixin {
             if (!number) args.set(3, offset);
             args.set(5, false);
         }
-    }*///?}
+    }^///?}
 }
 
-//?} <=1.20.4 {
+*///?} <=1.20.4 {
 /*import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.objectweb.asm.Opcodes;
 

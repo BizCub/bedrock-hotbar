@@ -20,7 +20,7 @@ stonecutter {
         fun mc(loader: String, vararg versions: String) {
             for (version in versions) version("$version-$loader", version)
         }
-        mc("fabric", "1.21.6", "1.21.5", "1.21.2", "1.21", "1.20.5", "1.20.2", "1.20", "1.19.4", "1.16.5")
+        mc("fabric", "1.21.11", "1.21.6", "1.21.5", "1.21.2", "1.21", "1.20.5", "1.20.2", "1.20", "1.19.4", "1.16.5")
         mc("neoforge", "1.21.6", "1.21.5", "1.21.2", "1.21")
     }
 }

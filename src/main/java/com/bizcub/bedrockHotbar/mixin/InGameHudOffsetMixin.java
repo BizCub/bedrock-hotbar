@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-//? >=1.21.11 {
+//? >=1.20.5 {
 import net.minecraft.client.gui.Gui;
 
 @Mixin(Gui.class)
@@ -64,7 +64,7 @@ public class InGameHudOffsetMixin {
     }
 
     //? <=1.21.5 {
-    /^@Redirect(method = {"renderMountJumpBar", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
+    @Redirect(method = {"renderMountJumpBar", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
     private int offsetMountJumpBar(DrawContext instance) {
         return Offset.operation(instance.getScaledWindowHeight());
     }
@@ -83,7 +83,7 @@ public class InGameHudOffsetMixin {
             if (!number) args.set(3, offset);
             args.set(5, false);
         }
-    }^///?}
+    }//?}
 }
 
 *///?} <=1.20.4 {

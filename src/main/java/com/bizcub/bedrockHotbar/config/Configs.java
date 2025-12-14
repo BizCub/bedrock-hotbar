@@ -1,20 +1,21 @@
 package com.bizcub.bedrockHotbar.config;
 
-import com.bizcub.bedrockHotbar.Constants;
+import com.bizcub.bedrockHotbar.BedrockHotbar;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
-@Config(name = Constants.MOD_ID)
+@Config(name = BedrockHotbar.MOD_ID)
 public class Configs implements ConfigData {
 
-    @ConfigEntry.BoundedDiscrete(min = Constants.MIN_OFFSET, max = Constants.MAX_OFFSET)
-    public int offset = Constants.DEF_OFFSET;
+    @ConfigEntry.BoundedDiscrete(min = BedrockHotbar.MIN_OFFSET, max = BedrockHotbar.MAX_OFFSET)
+    public int offset = BedrockHotbar.DEF_OFFSET;
 
+    //? >=1.20.2 {
     @ConfigEntry.Gui.Tooltip
-    public boolean renderTexture = true;
+    public boolean renderTexture = true;//?}
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)

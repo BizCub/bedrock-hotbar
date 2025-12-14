@@ -1,1 +1,2 @@
-* Minecraft no longer crashes when launched on fabric version 1.20.5+.
+* 1.21.11 update
+* Forge added

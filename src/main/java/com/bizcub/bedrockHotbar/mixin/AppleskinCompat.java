@@ -1,6 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Offset;
+import com.bizcub.bedrockHotbar.BedrockHotbar;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import squeek.appleskin.client.HUDOverlayHandler;
@@ -14,7 +14,7 @@ public class AppleskinCompat {
 
     @Redirect(method = "render(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
     private static int onRender(DrawContext instance) {
-        return Offset.operation(instance.getScaledWindowHeight());
+        return BedrockHotbar.operation(instance.getScaledWindowHeight());
     }
 }
 
@@ -26,12 +26,12 @@ public class AppleskinCompat {
 
     @ModifyVariable(method = "onRender", at = @At("STORE"), ordinal = 0)
     private static int onRender(int value) {
-        return Offset.operation(value);
+        return BedrockHotbar.operation(value);
     }
 
     @ModifyVariable(method = "drawExhaustionOverlay", at = @At("HEAD"), ordinal = 1, argsOnly = true)
     private static int drawHealthOverlay(int value) {
-        return Offset.operation(value);
+        return BedrockHotbar.operation(value);
     }
 }
 

@@ -1,7 +1,7 @@
 plugins {
-    id("dev.architectury.loom") version "1.+"
+    id("dev.architectury.loom") version "1.13.467"
     id("architectury-plugin") version "3.+"
-    id("me.modmuss50.mod-publish-plugin") version "0.8.+"
+    id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
 
 val minecraft = stonecutter.current.version
@@ -10,15 +10,13 @@ val loader = loom.platform.get().name.lowercase()
 val mixinId = mod.id.replace("_", "-")
 
 val isFabric = loader == "fabric"
+val isForge = loader == "forge"
 val isNeoForge = loader == "neoforge"
 
 var pubStart = findProperty("publish.start").toString()
 if (pubStart == "null") pubStart = minecraft
 var pubEnd = findProperty("publish.end").toString()
 if (pubEnd == "null") pubEnd = minecraft
-
-var neoPatch = findProperty("deps.neoforge_patch").toString()
-if (neoPatch == "null") neoPatch = "1.21+build.4"
 
 base.archivesName.set("$mixinId-$loader")
 version = "${mod.version}+$pubStart"
@@ -48,6 +46,8 @@ loom {
         }
     }
 
+    if (isForge) forge.mixinConfigs("${mixinId}.mixins.json")
+
     runConfigs.all {
         runDir = "../../run"
     }
@@ -62,14 +62,16 @@ repositories {
 dependencies {
     minecraft("com.mojang:minecraft:${if (snapshot == "null") minecraft else snapshot}")
     mappings(loom.officialMojangMappings())
-    modCompileOnly("squeek.appleskin:appleskin-$loader:${prop("mod.appleskin")}")
     modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.cloth_config}")
+    if (!(isForge && stonecutter.eval(minecraft, ">=1.20.5")))
+        modImplementation("squeek.appleskin:appleskin-$loader:${prop("mod.appleskin")}")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("mod.fabric_api")}")
-        modCompileOnly("com.terraformersmc:modmenu:${mod.modmenu}")
+        modImplementation("com.terraformersmc:modmenu:${mod.modmenu}")
     }
+    if (isForge)
+        "forge"("net.minecraftforge:forge:$minecraft-${mod.dep("forge_loader")}")
     if (isNeoForge) {
         val neoVers = minecraft.substring(2)
         val neoLoader = mod.dep("neoforge_loader")

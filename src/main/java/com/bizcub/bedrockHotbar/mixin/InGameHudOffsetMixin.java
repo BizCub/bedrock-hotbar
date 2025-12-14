@@ -21,7 +21,7 @@ public class InGameHudOffsetMixin {
         return BedrockHotbar.operation(instance.guiHeight());
     }
 
-    //?} neoforge {
+    //?} else {
     /*@Redirect(method = {"renderVehicleHealth", "renderItemHotbar", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel", "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
     private int offsetMountHealth(GuiGraphics instance) {
         return BedrockHotbar.operation(instance.guiHeight());
@@ -67,7 +67,7 @@ public class InGameHudOffsetMixin {
     }
 
     //? <=1.20.1 {
-    /^/^²@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
+    /^@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
     private int resizeSelection(int value) {
         return 24;
     }^///?}

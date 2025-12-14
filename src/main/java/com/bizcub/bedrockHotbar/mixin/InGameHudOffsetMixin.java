@@ -15,10 +15,17 @@ import net.minecraft.client.gui.GuiGraphics;
 @Mixin(Gui.class)
 public class InGameHudOffsetMixin {
 
+    //? fabric {
     @Redirect(method = {"renderVehicleHealth", "renderPlayerHealth", "renderItemHotbar", "renderSelectedItemName"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
     private int offsetMountHealth(GuiGraphics instance) {
         return BedrockHotbar.operation(instance.guiHeight());
     }
+
+    //?} neoforge {
+    /*@Redirect(method = {"renderVehicleHealth", "renderItemHotbar", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel", "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
+    private int offsetMountHealth(GuiGraphics instance) {
+        return BedrockHotbar.operation(instance.guiHeight());
+    }*///?}
 
     //? <=1.21.5 {
     /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
@@ -60,7 +67,7 @@ public class InGameHudOffsetMixin {
     }
 
     //? <=1.20.1 {
-    /^@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
+    /^/^²@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
     private int resizeSelection(int value) {
         return 24;
     }^///?}

@@ -6,15 +6,15 @@ import org.spongepowered.asm.mixin.injection.At;
 import squeek.appleskin.client.HUDOverlayHandler;
 
 //? neoforge {
-/*import net.minecraft.client.gui.DrawContext;
+/*import net.minecraft.client.gui.GuiGraphics;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(HUDOverlayHandler.Overlay.class)
 public class AppleskinCompat {
 
-    @Redirect(method = "render(Lnet/minecraft/client/gui/DrawContext;Lnet/minecraft/client/render/RenderTickCounter;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;getScaledWindowHeight()I"))
-    private static int onRender(DrawContext instance) {
-        return BedrockHotbar.operation(instance.getScaledWindowHeight());
+    @Redirect(method = "render(Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/client/DeltaTracker;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
+    private static int onRender(GuiGraphics instance) {
+        return BedrockHotbar.operation(instance.guiHeight());
     }
 }
 

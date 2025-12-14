@@ -1,5 +1,5 @@
 plugins {
-    id("dev.architectury.loom") version "1.13.467"
+    id("dev.architectury.loom") version "1.+"
     id("architectury-plugin") version "3.+"
     id("me.modmuss50.mod-publish-plugin") version "1.+"
 }
@@ -63,8 +63,10 @@ dependencies {
     minecraft("com.mojang:minecraft:${if (snapshot == "null") minecraft else snapshot}")
     mappings(loom.officialMojangMappings())
     modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.cloth_config}")
-    if (!(isForge && stonecutter.eval(minecraft, ">=1.20.5")))
+    if (!((isForge && stonecutter.eval(minecraft, ">=1.20.5")) || (isFabric && stonecutter.eval(minecraft, "1.21.11"))))
         modImplementation("squeek.appleskin:appleskin-$loader:${prop("mod.appleskin")}")
+    else
+        modImplementation("squeek.appleskin:appleskin-fabric:mc1.21-3.0.6")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")

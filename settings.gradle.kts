@@ -2,26 +2,33 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
-        maven("https://maven.fabricmc.net/")
-        maven("https://maven.neoforged.net/releases/")
-        maven("https://maven.architectury.dev")
         maven("https://maven.kikugie.dev/snapshots")
+        maven("https://maven.architectury.dev")
+        maven("https://maven.fabricmc.net")
+        maven("https://maven.minecraftforge.net")
+        maven("https://maven.neoforged.net/releases")
     }
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version "0.7.10"
+    id("dev.kikugie.stonecutter") version "0.8.2"
 }
 
 stonecutter {
-    kotlinController = true
-    centralScript = "build.gradle.kts"
     create(rootProject) {
-        fun mc(loader: String, vararg versions: String) {
-            for (version in versions) version("$version-$loader", version)
-        }
-        mc("fabric", "1.21.11", "1.21.6", "1.21.5", "1.21.2", "1.21", "1.20.5", "1.20.2", "1.20", "1.19.4", "1.16.5")
-        mc("neoforge", "1.21.11", "1.21.6", "1.21.5", "1.21.2", "1.21")
+        val fb = "fabric"; val fr = "forge"; val nf = "neoforge"
+        fun match(version: String, vararg loaders: String) = loaders
+            .forEach { version("$version-$it", version) }
+        match("1.21.11", fb, nf)
+        match("1.21.8", fb, nf)
+        match("1.21.5", fb, nf)
+        match("1.21.3", fb, nf)
+        match("1.21.1", fb, nf)
+        match("1.20.5", fb)
+        match("1.20.2", fb)
+        match("1.20",   fb)
+        match("1.19.4", fb)
+        match("1.16.5", fb)
     }
 }
 

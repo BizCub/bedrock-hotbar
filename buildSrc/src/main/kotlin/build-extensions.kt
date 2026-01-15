@@ -1,9 +1,21 @@
+import dev.kikugie.stonecutter.build.StonecutterBuildExtension
+import dev.kikugie.stonecutter.controller.StonecutterControllerExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.language.jvm.tasks.ProcessResources
 
 val Project.mod: ModData get() = ModData(this)
 fun Project.prop(key: String): String? = findProperty(key)?.toString()
 fun String.upperCaseFirst() = replaceFirstChar { if (it.isLowerCase()) it.uppercaseChar() else it }
+
+val Project.scb get() = extensions.getByType<StonecutterBuildExtension>()
+val Project.scc get() = extensions.getByType<StonecutterControllerExtension>()
+
+val Project.loader: String get() = scb.current.project.substringAfterLast("-")
+val Project.isFabric: Boolean get() = loader == "fabric"
+val Project.isForge: Boolean get() = loader == "forge"
+val Project.isNeoForge: Boolean get() = loader == "neoforge"
+val Project.isClothConfigAvailable: Boolean get() = !(isForge && scb.current.parsed >= "1.21.4")
 
 fun ProcessResources.properties(files: Iterable<String>, vararg properties: Pair<String, Any>) {
     for ((name, value) in properties) inputs.property(name, value)
@@ -14,15 +26,23 @@ fun ProcessResources.properties(files: Iterable<String>, vararg properties: Pair
 
 @JvmInline
 value class ModData(private val project: Project) {
-    val id: String get() = requireNotNull(project.prop("mod.id")) { "Missing 'mod.id'" }
-    val name: String get() = requireNotNull(project.prop("mod.name")) { "Missing 'mod.name'" }
-    val description: String get() = requireNotNull(project.prop("mod.description")) { "Missing 'mod.description'" }
-    val version: String get() = requireNotNull(project.prop("mod.version")) { "Missing 'mod.version'" }
-    val modrinth: String get() = requireNotNull(project.prop("mod.modrinth")) { "Missing 'mod.modrinth'" }
-    val curseforge: String get() = requireNotNull(project.prop("mod.curseforge")) { "Missing 'mod.curseforge'" }
-    val github: String get() = requireNotNull(project.prop("mod.github")) { "Missing 'mod.github'" }
-    val cloth_config: String get() = requireNotNull(project.prop("mod.cloth_config")) { "Missing 'mod.cloth_config'" }
-    val modmenu: String get() = requireNotNull(project.prop("mod.modmenu")) { "Missing 'mod.modmenu'" }
+    val mc: String get() = depOrNull("minecraft") ?: project.scb.current.version
+    val id: String get() = modProp("id")
+    val mixin: String get() = modProp("id").replace("_", "-")
+    val name: String get() = modProp("name")
+    val description: String get() = modProp("description")
+    val version: String get() = modProp("version")
+    val pub_start: String get() = propIfExist("pub.start", mc).toString()
+    val pub_end: String get() = propIfExist("pub.end", mc).toString()
+    val modrinth: String get() = modProp("modrinth")
+    val curseforge: String get() = modProp("curseforge")
+    val github: String get() = modProp("github")
+    val cloth_config: String get() = modProp("cloth_config")
+    val modmenu: String get() = modProp("modmenu")
 
-    fun dep(key: String) = requireNotNull(project.prop("deps.$key")) { "Missing 'deps.$key'" }
+    fun propIfExist(key: String, fallback: String) = if (project.prop(key) != null) project.prop(key) else fallback
+    fun modPropOrNull(key: String) = project.prop("mod.$key")
+    fun modProp(key: String) = requireNotNull(modPropOrNull(key)) { "Missing 'mod.$key'" }
+    fun depOrNull(key: String): String? = project.prop("deps.$key")?.takeIf { it.isNotEmpty() && it != "" }
+    fun dep(key: String) = requireNotNull(depOrNull(key)) { "Missing 'deps.$key'" }
 }

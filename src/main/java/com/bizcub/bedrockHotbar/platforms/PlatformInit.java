@@ -10,6 +10,6 @@ public class PlatformInit {
     //? !(>=1.21.4 && forge) {
     public static Screen getScreen(Screen parent) {
         /*? >=1.21.11*/ return AutoConfigClient.getConfigScreen(Configs.class, parent).get();
-        /*? <=1.21.10*/ /*return AutoConfig.getConfigScreen(Configs.class, parent).get();*/
+        /*? <=1.21.10*/ //return AutoConfig.getConfigScreen(Configs.class, parent).get();
     }//?}
 }

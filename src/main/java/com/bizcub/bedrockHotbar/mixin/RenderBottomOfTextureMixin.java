@@ -36,23 +36,23 @@ public abstract class RenderBottomOfTextureMixin {
 
     @Shadow protected abstract Player getCameraPlayer();
     /*? >=1.21.11*/ @Final @Shadow private static Identifier HOTBAR_SELECTION_SPRITE;
-    /*? <=1.21.10*/ /*@Final @Shadow private static ResourceLocation HOTBAR_SELECTION_SPRITE;*/
+    /*? <=1.21.10*/ //@Final @Shadow private static ResourceLocation HOTBAR_SELECTION_SPRITE;
 
     /*? >=1.20.5*/ @Inject(method = "renderItemHotbar", at = @At(value = "TAIL"))
-    /*? <=1.20.4*/ /*@Inject(method = "renderHotbar", at = @At(value = "TAIL"))*/
+    /*? <=1.20.4*/ //@Inject(method = "renderHotbar", at = @At(value = "TAIL"))
     /*? >=1.21*/ private void renderTexture(GuiGraphics context, DeltaTracker deltaTracker, CallbackInfo ci) {
-    /*? <=1.20.6 && >=1.20.5*/ /*private void renderTexture(GuiGraphics context, float f, CallbackInfo ci) {*/
-    /*? <=1.20.4*/ /*private void renderTexture(float f, GuiGraphics context, CallbackInfo ci) {*/
+    /*? <=1.20.6 && >=1.20.5*/ //private void renderTexture(GuiGraphics context, float f, CallbackInfo ci) {
+    /*? <=1.20.4*/ //private void renderTexture(float f, GuiGraphics context, CallbackInfo ci) {
         if (Compat.isModLoaded(Compat.clothConfigId) && !Configs.getInstance().renderTexture) return;
 
         int x = context.guiWidth();
         int y = context.guiHeight();
         /*? >=1.21.5*/ int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
-        /*? <=1.21.4*/ /*int selectedSlot = getCameraPlayer().getInventory().selected;*/
+        /*? <=1.21.4*/ //int selectedSlot = getCameraPlayer().getInventory().selected;
         y = BedrockHotbar.operation(y);
         /*? >=1.21.6*/ context.blitSprite(RenderPipelines.GUI_TEXTURED, HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
-        /*? <=1.21.5 && >=1.21.2*/ /*context.blitSprite(RenderType::guiTextured, HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);*/
-        /*? <=1.21.1*/ /*context.blitSprite(HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);*/
+        /*? <=1.21.5 && >=1.21.2*/ //context.blitSprite(RenderType::guiTextured, HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
+        /*? <=1.21.1*/ //context.blitSprite(HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x / 2 - 91 - 1 + selectedSlot * 20, y, 24, 1);
     }
 }
 

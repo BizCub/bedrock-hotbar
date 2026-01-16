@@ -14,16 +14,18 @@ stonecutter {
 repositories {
     maven("https://maven.neoforged.net/releases")
     maven("https://maven.terraformersmc.com/releases")
+    maven("https://maven.ryanliptak.com")
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${mod.propIfExist("mc.snapshot", mod.mc)}")
     mappings(loom.officialMojangMappings())
-    modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.cloth_config}")
+    modApi("me.shedaniel.cloth:cloth-config-$loader:${mod.modProp("cloth_config")}")
+    modImplementation("squeek.appleskin:appleskin-$loader:${mod.modProp("appleskin")}")
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
-        modImplementation("com.terraformersmc:modmenu:${mod.modmenu}")
+        modImplementation("com.terraformersmc:modmenu:${mod.modProp("modmenu")}")
     }
     if (isForge) {
         "forge"("net.minecraftforge:forge:${mod.mc}-${mod.dep("forge_loader")}")

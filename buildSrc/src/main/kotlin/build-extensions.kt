@@ -15,7 +15,8 @@ val Project.loader: String get() = scb.current.project.substringAfterLast("-")
 val Project.isFabric: Boolean get() = loader == "fabric"
 val Project.isForge: Boolean get() = loader == "forge"
 val Project.isNeoForge: Boolean get() = loader == "neoforge"
-val Project.isClothConfigAvailable: Boolean get() = !(isForge && scb.current.parsed >= "1.21.4")
+val Project.isClothConfigAvailable: Boolean get() = !(isForge && scb.current.parsed > "1.21.3")
+val Project.isAppleSkinAvailable: Boolean get() = !(isForge && scb.current.parsed > "1.20.4")
 
 fun ProcessResources.properties(files: Iterable<String>, vararg properties: Pair<String, Any>) {
     for ((name, value) in properties) inputs.property(name, value)
@@ -37,8 +38,6 @@ value class ModData(private val project: Project) {
     val modrinth: String get() = modProp("modrinth")
     val curseforge: String get() = modProp("curseforge")
     val github: String get() = modProp("github")
-    val cloth_config: String get() = modProp("cloth_config")
-    val modmenu: String get() = modProp("modmenu")
 
     fun propIfExist(key: String, fallback: String) = if (project.prop(key) != null) project.prop(key) else fallback
     fun modPropOrNull(key: String) = project.prop("mod.$key")

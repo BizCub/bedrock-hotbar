@@ -34,8 +34,8 @@ tasks.processResources {
 
 project.extra["loom.platform"] = loader
 
-fun loadExtraDependencies(project: Project, mcVers: String) {
-    val customPropsFile = project.rootProject.file("vers/$mcVers.properties")
+fun loadExtraDependencies() {
+    val customPropsFile = project.rootProject.file("vers/${mod.mc}.properties")
 
     if (customPropsFile.exists()) {
         val customProps = Properties().apply {
@@ -47,4 +47,4 @@ fun loadExtraDependencies(project: Project, mcVers: String) {
     }
 }
 
-loadExtraDependencies(project,mod.mc)
+loadExtraDependencies()

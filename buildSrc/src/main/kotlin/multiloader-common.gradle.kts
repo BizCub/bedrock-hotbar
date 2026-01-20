@@ -28,7 +28,8 @@ tasks.processResources {
         "modrinth" to mod.modrinth,
         "github" to mod.github,
         "author" to "Bizarre Cube",
-        "license" to "MIT"
+        "license" to "MIT",
+        "ModMenu" to $$"$ModMenu"
     )
 }
 

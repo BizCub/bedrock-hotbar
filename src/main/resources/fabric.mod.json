@@ -18,7 +18,7 @@
             "com.bizcub.bedrockHotbar.platforms.Fabric"
         ],
         "modmenu": [
-            "com.bizcub.bedrockHotbar.platforms.Fabric"
+            "com.bizcub.bedrockHotbar.platforms.Fabric$ModMenu"
         ]
     },
     "mixins": [

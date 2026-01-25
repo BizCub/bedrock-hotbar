@@ -1,0 +1,10 @@
+{
+    "text.autoconfig.bedrock_hotbar.title": "Настройки панели быстрого доступа",
+    "text.autoconfig.bedrock_hotbar.option.offset": "Смещение панели быстрого доступа",
+    "text.autoconfig.bedrock_hotbar.option.renderTexture": "Отображать нижнюю часть текстуры",
+    "text.autoconfig.bedrock_hotbar.option.renderTexture.@Tooltip": "Показывать ли нижнюю часть текстуры выбора на панели быстрого доступа",
+    "text.autoconfig.bedrock_hotbar.option.xpLevelMode": "Тип отображения уровня опыта",
+    "text.autoconfig.bedrock_hotbar.option.xpLevelMode.@Tooltip": "Отображать уровень опыта с ...",
+    "text.bedrock_hotbar.option.xpLevelMode.shadow": "Тень",
+    "text.bedrock_hotbar.option.xpLevelMode.outline": "Контур"
+}

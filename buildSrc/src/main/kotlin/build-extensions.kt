@@ -6,15 +6,15 @@ import org.gradle.language.jvm.tasks.ProcessResources
 
 val Project.mod: ModData get() = ModData(this)
 fun Project.prop(key: String): String? = findProperty(key)?.toString()
+fun Project.dep(key: String): String? = findProperty("dep.$key")?.toString()
 fun String.upperCaseFirst() = replaceFirstChar { if (it.isLowerCase()) it.uppercaseChar() else it }
 
 val Project.scb get() = extensions.getByType<StonecutterBuildExtension>()
 val Project.scc get() = extensions.getByType<StonecutterControllerExtension>()
 
-val Project.loader: String get() = scb.current.project.substringAfterLast("-")
-val Project.isFabric: Boolean get() = loader == "fabric"
-val Project.isForge: Boolean get() = loader == "forge"
-val Project.isNeoForge: Boolean get() = loader == "neoforge"
+val Project.isFabric: Boolean get() = mod.loader == "fabric"
+val Project.isForge: Boolean get() = mod.loader == "forge"
+val Project.isNeoForge: Boolean get() = mod.loader == "neoforge"
 val Project.isClothConfigAvailable: Boolean get() = !(isForge && scb.current.parsed > "1.21.3")
 val Project.isAppleSkinAvailable: Boolean get() = !(isForge && scb.current.parsed > "1.20.4")
 
@@ -27,7 +27,8 @@ fun ProcessResources.properties(files: Iterable<String>, vararg properties: Pair
 
 @JvmInline
 value class ModData(private val project: Project) {
-    val mc: String get() = depOrNull("minecraft") ?: project.scb.current.version
+    val mc: String get() = project.scb.current.version
+    val loader: String get() = project.scb.current.project.substringAfterLast("-")
     val id: String get() = modProp("id")
     val mixin: String get() = modProp("id").replace("_", "-")
     val name: String get() = modProp("name")
@@ -38,10 +39,11 @@ value class ModData(private val project: Project) {
     val modrinth: String get() = modProp("modrinth")
     val curseforge: String get() = modProp("curseforge")
     val github: String get() = modProp("github")
+    val cloth_config: String get() = modProp("cloth_config")
+    val modmenu: String get() = modProp("modmenu")
+    val appleskin: String get() = modProp("appleskin")
 
     fun propIfExist(key: String, fallback: String) = if (project.prop(key) != null) project.prop(key) else fallback
     fun modPropOrNull(key: String) = project.prop("mod.$key")
     fun modProp(key: String) = requireNotNull(modPropOrNull(key)) { "Missing 'mod.$key'" }
-    fun depOrNull(key: String): String? = project.prop("deps.$key")?.takeIf { it.isNotEmpty() && it != "" }
-    fun dep(key: String) = requireNotNull(depOrNull(key)) { "Missing 'deps.$key'" }
 }

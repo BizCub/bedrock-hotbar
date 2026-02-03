@@ -8,6 +8,10 @@ stonecutter {
     constants.match(mod.loader, "fabric", "forge", "neoforge")
 
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
+
+    replacements.string(scp >= "1.19.4") {
+        replace("systems/RenderSystem;translatef", "vertex/PoseStack;translate")
+    }
 }
 
 repositories {
@@ -25,6 +29,7 @@ dependencies {
 
     if (isFabric) {
         modImplementation("net.fabricmc:fabric-loader:latest.release")
+        modImplementation("net.fabricmc.fabric-api:fabric-api:${mod.fabric_api}")
         modImplementation("com.terraformersmc:modmenu:${mod.modmenu}")
     }
     if (isForge) {
@@ -50,7 +55,7 @@ publishMods {
         accessToken = tokenDir("modrinth")
         if (isClothConfigAvailable) optional("cloth-config")
         if (isFabric) optional("modmenu")
-        optional("appleskin")
+        if (isAppleSkinAvailable) optional("appleskin")
         minecraftVersionRange {
             start = mod.pub_start
             end = mod.pub_end
@@ -62,7 +67,7 @@ publishMods {
         accessToken = tokenDir("curseforge")
         if (isClothConfigAvailable) optional("cloth-config")
         if (isFabric) optional("modmenu")
-        optional("appleskin")
+        if (isAppleSkinAvailable) optional("appleskin")
         minecraftVersionRange {
             start = mod.pub_start
             end = mod.pub_end

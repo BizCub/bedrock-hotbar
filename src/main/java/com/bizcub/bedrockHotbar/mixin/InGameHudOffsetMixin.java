@@ -4,7 +4,6 @@ import com.bizcub.bedrockHotbar.BedrockHotbar;
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
@@ -15,17 +14,14 @@ import net.minecraft.client.gui.GuiGraphics;
 @Mixin(Gui.class)
 public class InGameHudOffsetMixin {
 
-    //? fabric {
-    @Redirect(method = {"renderVehicleHealth", "renderPlayerHealth", "renderItemHotbar", "renderSelectedItemName"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"), method = {
+            /*? fabric*/ "renderPlayerHealth", "renderSelectedItemName",
+            /*? !fabric*/ //"renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel", "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V",
+            "renderOverlayMessage", "renderVehicleHealth", "renderItemHotbar"
+    })
     private int offsetMountHealth(GuiGraphics instance) {
         return BedrockHotbar.operation(instance.guiHeight());
     }
-
-    //?} else {
-    /*@Redirect(method = {"renderVehicleHealth", "renderItemHotbar", "renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel", "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
-    private int offsetMountHealth(GuiGraphics instance) {
-        return BedrockHotbar.operation(instance.guiHeight());
-    }*///?}
 
     //? <=1.21.5 {
     /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
@@ -55,11 +51,17 @@ public class InGameHudOffsetMixin {
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Gui.class)
 public class InGameHudOffsetMixin {
 
     @Shadow private int screenHeight;
+
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 0), index = 1)
+    private float offsetActionbar(float value) {
+        return BedrockHotbar.operation((int) value);
+    }
 
     @Redirect(method = {"renderHotbar", "renderExperienceBar", "renderPlayerHealth", "renderVehicleHealth", "renderSelectedItemName", "renderJumpMeter"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;screenHeight:I", opcode = Opcodes.GETFIELD))
     private int offsetHotbar(Gui instance) {

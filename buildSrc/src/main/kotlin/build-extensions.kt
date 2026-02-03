@@ -42,6 +42,7 @@ value class ModData(private val project: Project) {
     val github: String get() = modProp("github")
     val cloth_config: String get() = modProp("cloth_config")
     val modmenu: String get() = modProp("modmenu")
+    val fabric_api: String get() = modProp("fabric_api")
     val appleskin: String get() = modProp("appleskin")
 
     fun propIfExist(key: String, fallback: String) = if (project.prop(key) != null) project.prop(key) else fallback

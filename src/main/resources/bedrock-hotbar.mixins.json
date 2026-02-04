@@ -5,8 +5,8 @@
         "defaultRequire": 1
     },
     "client": [
-        "BarOffsetMixin",
-        "InGameHudOffsetMixin",
+        "ContextualBarRendererMixin",
+        "GuiMixin",
         "RenderBottomOfTextureMixin"
     ],
     "mixins": [

@@ -1,6 +1,6 @@
 package com.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.BedrockHotbar;
+import com.bizcub.bedrockHotbar.Main;
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,7 +12,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 
 @Mixin(Gui.class)
-public class InGameHudOffsetMixin {
+public class GuiMixin {
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"), method = {
             /*? fabric*/ "renderPlayerHealth", "renderSelectedItemName",
@@ -20,29 +20,18 @@ public class InGameHudOffsetMixin {
             "renderOverlayMessage", "renderVehicleHealth", "renderItemHotbar"
     })
     private int offsetMountHealth(GuiGraphics instance) {
-        return BedrockHotbar.operation(instance.guiHeight());
+        return Main.operation(instance.guiHeight());
     }
 
     //? <=1.21.5 {
     /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
     private int offsetMountJumpBar(GuiGraphics instance) {
-        return BedrockHotbar.operation(instance.guiHeight());
+        return Main.operation(instance.guiHeight());
     }
 
     @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
-        int color = args.get(4);
-        int offset = BedrockHotbar.operation(args.get(3)) - 3;
-        boolean number = color != 0;
-
-        if (number) args.set(3, offset);
-        else args.set(3, -10);
-        args.set(5, true);
-
-        if (Compat.isModLoaded(Compat.clothConfigId) && !(Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
-            if (!number) args.set(3, offset);
-            args.set(5, false);
-        }
+        Main.renderExperienceLevel(args);
     }*///?}
 }
 
@@ -54,43 +43,31 @@ import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Gui.class)
-public class InGameHudOffsetMixin {
+public class GuiMixin {
 
     @Shadow private int screenHeight;
 
     @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 0), index = 1)
     private float offsetActionbar(float value) {
-        return BedrockHotbar.operation((int) value);
+        return Main.operation((int) value);
     }
 
-    @Redirect(method = {"renderHotbar", "renderExperienceBar", "renderPlayerHealth", "renderVehicleHealth", "renderSelectedItemName", "renderJumpMeter"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;screenHeight:I", opcode = Opcodes.GETFIELD))
+    @Redirect(method = {"renderItemHotbar", "renderExperienceBar", "renderPlayerHealth", "renderVehicleHealth", "renderSelectedItemName", "renderJumpMeter"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;screenHeight:I", opcode = Opcodes.GETFIELD))
     private int offsetHotbar(Gui instance) {
-        return BedrockHotbar.operation(screenHeight);
+        return Main.operation(screenHeight);
     }
-
-    //? <=1.20.1 {
-    /^@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
-    private int resizeSelection(int value) {
-        return 24;
-    }^///?}
 
     //? >=1.20 {
     @ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
-        int color = args.get(4);
-        int offset = args.get(3);
-        offset -= 3;
-        boolean number = color != 0;
-
-        if (number) args.set(3, offset);
-        else args.set(3, -10);
-        args.set(5, true);
-
-        if (Compat.isModLoaded(Compat.clothConfigId) && !(Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Shadow)) {
-            if (!number) args.set(3, offset);
-            args.set(5, false);
-        }
+        Main.renderExperienceLevel(args);
     }//?}
+
+    //? <=1.20.1 {
+    /^@ModifyConstant(method = "renderItemHotbar", constant = @Constant(intValue = 22, ordinal = 4))
+    private int resizeSelection(int value) {
+        return 24;
+    }^///?}
 
     //? <=1.19.4 {
     /^@Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))

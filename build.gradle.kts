@@ -9,6 +9,15 @@ stonecutter {
 
     swaps["mod_id"] = "\"${prop("mod.id")}\";"
 
+    replacements.string(scp >= "1.21.11") {
+        replace("ResourceLocation", "Identifier")
+    }
+    replacements.string(scp >= "1.21.5") {
+        replace(".selected", ".getSelectedSlot()")
+    }
+    replacements.string(scp >= "1.20.5") {
+        replace("renderHotbar", "renderItemHotbar")
+    }
     replacements.string(scp >= "1.19.4") {
         replace("systems/RenderSystem;translatef", "vertex/PoseStack;translate")
     }

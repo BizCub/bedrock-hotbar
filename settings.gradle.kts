@@ -30,6 +30,7 @@ stonecutter {
         match("1.20.2", fb)
         match("1.20.1", fb)
         match("1.19.4", fb)
+        match("1.17.1", fb)
         match("1.16.5", fb)
     }
 }

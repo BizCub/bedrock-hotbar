@@ -3,12 +3,13 @@ package com.bizcub.bedrockHotbar.mixin;
 import com.bizcub.bedrockHotbar.Main;
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
+import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 //? >=1.20.5 {
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
 
 @Mixin(Gui.class)
@@ -39,16 +40,19 @@ public class GuiMixin {
 /*import org.objectweb.asm.Opcodes;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
-import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(Gui.class)
 public class GuiMixin {
 
     @Shadow private int screenHeight;
 
-    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 0), index = 1)
-    private float offsetActionbar(float value) {
+    @ModifyArg(method = "render", index = 1, at = @At(value = "INVOKE", ordinal = 0, target =
+            /^? >=1.19.3^/ "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"
+            /^? >=1.17 && <=1.19.2^/ //"Lcom/mojang/blaze3d/vertex/PoseStack;translate(DDD)V"
+            /^? <=1.16.5^/ //"Lcom/mojang/blaze3d/systems/RenderSystem;translatef(FFF)V"
+    ))
+    /^? !(>=1.17 && <=1.19.2)^/ private float offsetActionbar(float value) {
+    /^? >=1.17 && <=1.19.2^/ //private double offsetActionbar(double value) {
         return Main.operation((int) value);
     }
 

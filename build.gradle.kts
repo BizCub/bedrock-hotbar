@@ -18,9 +18,6 @@ stonecutter {
     replacements.string(scp >= "1.20.5") {
         replace("renderHotbar", "renderItemHotbar")
     }
-    replacements.string(scp >= "1.19.4") {
-        replace("systems/RenderSystem;translatef", "vertex/PoseStack;translate")
-    }
 }
 
 repositories {

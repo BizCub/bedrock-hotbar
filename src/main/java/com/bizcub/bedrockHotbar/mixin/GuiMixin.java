@@ -2,7 +2,7 @@ package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
 import com.bizcub.bedrockHotbar.config.Compat;
-import com.bizcub.bedrockHotbar.config.Configs;
+//import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,27 +10,28 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 //? >=1.20.5 {
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 @Mixin(Gui.class)
 public class GuiMixin {
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"), method = {
-            /*? fabric*/ "renderPlayerHealth", "renderSelectedItemName",
-            /*? !fabric*/ //"renderHealthLevel", "renderArmorLevel", "renderFoodLevel", "renderAirLevel", "renderSelectedItemName(Lnet/minecraft/client/gui/GuiGraphics;I)V",
-            "renderOverlayMessage", "renderVehicleHealth", "renderItemHotbar"
+    //~ if >=26.1 'render' -> 'extract' {
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"), method = {
+            /*? fabric*/ "extractPlayerHealth", "extractSelectedItemName",
+            /*? !fabric*/ //"extractHealthLevel", "extractArmorLevel", "extractFoodLevel", "extractAirLevel", "extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;I)V",
+            "extractOverlayMessage", "extractVehicleHealth", "extractItemHotbar"
     })
-    private int offsetMountHealth(GuiGraphics instance) {
+    private int offsetMountHealth(GuiGraphicsExtractor instance) {
         return Main.operation(instance.guiHeight());
-    }
+    }//~}
 
     //? <=1.21.5 {
-    /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;guiHeight()I"))
-    private int offsetMountJumpBar(GuiGraphics instance) {
+    /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"))
+    private int offsetMountJumpBar(GuiGraphicsExtractor instance) {
         return Main.operation(instance.guiHeight());
     }
 
-    @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
+    @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
         Main.renderExperienceLevel(args);
     }*///?}
@@ -62,7 +63,7 @@ public class GuiMixin {
     }
 
     //? >=1.20 {
-    @ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphics;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
+    @ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
         Main.renderExperienceLevel(args);
     }//?}

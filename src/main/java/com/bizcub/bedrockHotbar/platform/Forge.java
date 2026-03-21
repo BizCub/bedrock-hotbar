@@ -1,5 +1,5 @@
 //? forge {
-/*package com.bizcub.bedrockHotbar.platforms;
+/*package com.bizcub.bedrockHotbar.platform;
 
 import com.bizcub.bedrockHotbar.BedrockHotbar;
 import com.bizcub.bedrockHotbar.config.Compat;

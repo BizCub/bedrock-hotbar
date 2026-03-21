@@ -1,14 +1,36 @@
-import java.util.Properties
-
 plugins {
     id("java")
 }
 
-val customPropsFile = project.rootProject.file("vers/${mod.mc}.properties")!!
-if (customPropsFile.exists()) {
-    val customProps = Properties().apply { customPropsFile.inputStream().use { load(it) } }
-    customProps.forEach { (key, value) -> project.extra[key.toString()] = value }
+sc.replacements {
+    string(scp >= "26.1") {
+        replace("GuiGraphics", "GuiGraphicsExtractor")
+    }
+    string(scp >= "1.21.11") {
+        replace("ResourceLocation", "Identifier")
+    }
+    string(scp >= "1.21.5") {
+        replace(".selected", ".getSelectedSlot()")
+    }
+    string(scp >= "1.20.5") {
+        replace("renderHotbar", "renderItemHotbar")
+    }
 }
+
+if (isNeoForge) {
+    val neoVersion = mod.mc.substring(2)
+    val neoLoader = getProp("neoforge")
+    setProp("neoforge", if (neoVersion.contains(".")) "$neoVersion.$neoLoader" else "$neoVersion.0.$neoLoader")
+}
+
+configurations.all {
+    resolutionStrategy {
+        force("net.fabricmc:fabric-loader:latest.release")
+    }
+}
+
+base.archivesName.set("${mod.mixin}-${mod.loader}")
+version = "${mod.version}+${mod.pub_start}"
 
 project.extra["loom.platform"] = mod.loader
 

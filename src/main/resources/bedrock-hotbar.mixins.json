@@ -8,8 +8,5 @@
         "ContextualBarRendererMixin",
         "GuiMixin",
         "RenderBottomOfTextureMixin"
-    ],
-    "mixins": [
-        "AppleskinCompat"
     ]
 }

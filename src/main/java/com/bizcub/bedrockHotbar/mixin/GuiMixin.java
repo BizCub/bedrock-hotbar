@@ -57,7 +57,7 @@ public class GuiMixin {
         return Main.operation((int) value);
     }
 
-    @Redirect(method = {"renderItemHotbar", "renderExperienceBar", "renderPlayerHealth", "renderVehicleHealth", "renderSelectedItemName", "renderJumpMeter"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;screenHeight:I", opcode = Opcodes.GETFIELD))
+    @Redirect(method = {"renderHotbar", "renderExperienceBar", "renderPlayerHealth", "renderVehicleHealth", "renderSelectedItemName", "renderJumpMeter"}, at = @At(value = "FIELD", target = "Lnet/minecraft/client/gui/Gui;screenHeight:I", opcode = Opcodes.GETFIELD))
     private int offsetHotbar(Gui instance) {
         return Main.operation(screenHeight);
     }
@@ -69,7 +69,7 @@ public class GuiMixin {
     }//?}
 
     //? <=1.20.1 {
-    /^@ModifyConstant(method = "renderItemHotbar", constant = @Constant(intValue = 22, ordinal = 4))
+    /^@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
     private int resizeSelection(int value) {
         return 24;
     }^///?}
@@ -77,8 +77,8 @@ public class GuiMixin {
     //? <=1.19.4 {
     /^@Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))
     private static int experienceLevel(Font instance, PoseStack poseStack, String string, float k, float l, int color) {
-        if (Compat.isModLoaded(Compat.clothConfigId) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline))
-            return instance.draw(poseStack, string, k, (int) l - 3, color);
+//        if (Compat.isModLoaded(Compat.clothConfigId) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline))
+//            return instance.draw(poseStack, string, k, (int) l - 3, color);
         if (color != 0) return instance.drawShadow(poseStack, string, k, (int) l - 3, color);
         else return instance.draw(poseStack, string, k, -10, color);
     }^///?}

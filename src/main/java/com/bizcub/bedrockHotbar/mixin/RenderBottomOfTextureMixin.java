@@ -35,7 +35,7 @@ public abstract class RenderBottomOfTextureMixin {
     @Shadow protected abstract Player getCameraPlayer();
     @Final @Shadow private static Identifier HOTBAR_SELECTION_SPRITE;
 
-    //~ if >=26.1 'renderItemHotbar' -> 'extractItemHotbar'
+    //~ hotbar
     @Inject(method = "extractItemHotbar", at = @At(value = "TAIL"))
     private void renderTexture(
     /*? >=1.21*/ GuiGraphicsExtractor context, DeltaTracker deltaTracker,

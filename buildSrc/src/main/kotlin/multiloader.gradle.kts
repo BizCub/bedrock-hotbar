@@ -6,13 +6,16 @@ sc.replacements {
     string(scp >= "26.1") {
         replace("GuiGraphics", "GuiGraphicsExtractor")
     }
+    string(scp >= "26.1", "hotbar") {
+        replace("renderItemHotbar", "extractItemHotbar")
+    }
     string(scp >= "1.21.11") {
         replace("ResourceLocation", "Identifier")
     }
     string(scp >= "1.21.5") {
         replace(".selected", ".getSelectedSlot()")
     }
-    string(scp >= "1.20.5") {
+    string(scp >= "1.20.5", "hotbar") {
         replace("renderHotbar", "renderItemHotbar")
     }
 }

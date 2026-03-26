@@ -11,7 +11,7 @@ pluginManagement {
 }
 
 plugins {
-    id("dev.kikugie.stonecutter") version extra["plg.stonecutter"] as String
+    id("dev.kikugie.stonecutter") version "0.9+"
 }
 
 rootProject.name = extra["mod.name"] as String
@@ -19,9 +19,13 @@ rootProject.name = extra["mod.name"] as String
 stonecutter {
     create(rootProject) {
         val fb = "fabric"; val nf = "neoforge"
-        fun match(version: String, vararg loaders: String) = loaders
-            .forEach { version("$version-$it", version).buildscript("build.${if (eval(version, ">=26.1")) "unobf." else ""}gradle.kts") }
-        match("26.1", fb)
+        fun match(version: String, vararg loaders: String) = loaders.forEach {
+            var suffix = ""
+            if (it == "fabric" && sc.eval(version, "<26.1")) suffix = ".obf"
+            if (it == "forge" && sc.eval(version, "<26.1")) suffix = ".arch"
+            version("$version-$it", version).buildscript = "scripts/$it$suffix.gradle.kts"
+        }
+        match("26.1", fb, nf)
         match("1.21.11", fb, nf)
         match("1.21.8", fb, nf)
         match("1.21.5", fb, nf)

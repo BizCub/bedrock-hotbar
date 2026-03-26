@@ -1,18 +1,19 @@
 package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
+import com.bizcub.bedrockHotbar.config.Configs;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 /*? >=1.20.2*/ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ChatComponent;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(ChatComponent.class)
 public class ChatComponentMixin {
 
-    //26.1
     //~ if >=26.1 'render' -> 'extractRenderState'
     @Redirect(method = "extractRenderState", at = @At(value = "INVOKE", ordinal = 0, target =
             /*? >=1.20.2*/ "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"
@@ -26,8 +27,15 @@ public class ChatComponentMixin {
     /*? <=1.19.3 && >=1.17.1*/ //(PoseStack instance, double f, double g, double h)
     /*? <=1.16.5*/ //(float f, float g, float h)
     {
-        /*? >=1.20.2*/ return Main.operation(instance.guiHeight());
-        /*? <=1.20.1 && >=1.17.1*/ //instance.translate(f, Main.operation((int) -g), h);
-        /*? <=1.16.5*/ //RenderSystem.translatef(f, Main.operation((int) g), h);
+        /*? >=1.20.2*/ return offset(instance.guiHeight());
+        /*? <=1.20.1 && >=1.17.1*/ //instance.translate(f, offset((int) -g), h);
+        /*? <=1.16.5*/ //RenderSystem.translatef(f, offset((int) g), h);
+    }
+
+    @Unique
+    private int offset(int offset) {
+        return Configs.getInstance().chatOffset
+                ? Main.operation(offset)
+                : offset;
     }
 }

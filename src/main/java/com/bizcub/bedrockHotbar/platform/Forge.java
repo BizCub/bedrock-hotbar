@@ -1,7 +1,6 @@
 //? forge {
 /*package com.bizcub.bedrockHotbar.platform;
 
-import com.bizcub.bedrockHotbar.BedrockHotbar;
 import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
 /^? >=1.19^/ import net.minecraftforge.client.ConfigScreenHandler;
@@ -11,7 +10,7 @@ import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod(BedrockHotbar.MOD_ID)
+@Mod(Main.MOD_ID)
 public class Forge {
 
     public Forge() {

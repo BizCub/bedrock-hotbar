@@ -16,6 +16,9 @@
     "entrypoints": {
         "client": [
             "com.bizcub.bedrockHotbar.platform.Fabric"
+        ],
+        "modmenu": [
+            "com.bizcub.bedrockHotbar.platform.Fabric$ModMenu"
         ]
     },
     "mixins": [

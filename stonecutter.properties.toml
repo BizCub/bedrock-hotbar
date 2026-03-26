@@ -99,7 +99,8 @@ modmenu="17.0.0-beta.2"
 appleskin="mc1.21.11-3.0.7"
 
 ["26.1"]
-version="26.1-pre-2"
+neoforge="5-beta"
+cloth_config="26.1.154"
 fabric_api="0.143.15+26.1"
-modmenu="18.0.0-alpha.6"
+modmenu="18.0.0-alpha.8"
 pub_end="latest"

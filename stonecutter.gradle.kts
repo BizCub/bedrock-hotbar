@@ -3,8 +3,8 @@ import org.jetbrains.gradle.ext.runConfigurations
 import org.jetbrains.gradle.ext.settings
 
 plugins {
-    id("dev.kikugie.stonecutter")
-    id("org.jetbrains.gradle.plugin.idea-ext") version "1.3"
+    alias(libs.plugins.stonecutter)
+    alias(libs.plugins.idea.ext)
 }
 
 stonecutter active "26.1-fabric"

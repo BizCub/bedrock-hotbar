@@ -11,6 +11,7 @@ public class Compat {
 
     public static boolean isModLoaded(String modId) {
         /*? fabric*/ return FabricLoader.getInstance().isModLoaded(modId);
-        /*? forge || neoforge*/ //return ModList.get().isLoaded(modId);
+        /*? (forge && <26.1) || neoforge*/ //return ModList.get().isLoaded(modId);
+        /*? forge && >=26.1*/ //return ModList.isLoaded(modId);
     }
 }

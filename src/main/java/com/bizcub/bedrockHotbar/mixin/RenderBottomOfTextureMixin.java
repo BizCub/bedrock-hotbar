@@ -2,7 +2,7 @@ package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
 import com.bizcub.bedrockHotbar.config.Compat;
-//import com.bizcub.bedrockHotbar.config.Configs;
+import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -42,7 +42,7 @@ public abstract class RenderBottomOfTextureMixin {
     /*? <=1.20.6 && >=1.20.5*/ //GuiGraphicsExtractor context, float f,
     /*? <=1.20.4*/ //float f, GuiGraphicsExtractor context,
     CallbackInfo ci) {
-        if (Compat.isModLoaded(Compat.clothConfigId) /*&& !Configs.getInstance().renderTexture*/) return;
+        if (Compat.isModLoaded(Compat.clothConfigId) && !Configs.getInstance().renderTexture) return;
 
         int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
         int x = context.guiWidth() / 2 - 91 - 1 + selectedSlot * 20;

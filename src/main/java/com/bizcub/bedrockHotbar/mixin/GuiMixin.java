@@ -2,7 +2,7 @@ package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
 import com.bizcub.bedrockHotbar.config.Compat;
-//import com.bizcub.bedrockHotbar.config.Configs;
+import com.bizcub.bedrockHotbar.config.Configs;
 import net.minecraft.client.gui.Gui;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -77,8 +77,8 @@ public class GuiMixin {
     //? <=1.19.4 {
     /^@Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))
     private static int experienceLevel(Font instance, PoseStack poseStack, String string, float k, float l, int color) {
-//        if (Compat.isModLoaded(Compat.clothConfigId) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline))
-//            return instance.draw(poseStack, string, k, (int) l - 3, color);
+        if (Compat.isModLoaded(Compat.clothConfigId) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline))
+            return instance.draw(poseStack, string, k, (int) l - 3, color);
         if (color != 0) return instance.drawShadow(poseStack, string, k, (int) l - 3, color);
         else return instance.draw(poseStack, string, k, -10, color);
     }^///?}

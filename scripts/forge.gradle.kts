@@ -10,13 +10,13 @@ multiloader {
         minecraft.mavenizer(this)
         maven(fg.forgeMaven)
         maven(fg.minecraftLibsMaven)
-        for (rep in reps) maven(rep.name)
+        for (rep in reps) maven(rep.repository)
     }
 
     dependencies {
         implementation(minecraft.dependency("net.minecraftforge:forge:${getProp("forge")}"))
         annotationProcessor("net.minecraftforge:eventbus-validator:7.0.0")
-        for (dep in deps) dep.impl(dep.name)
+        for (dep in deps) dep.configuration(dep.dependency)
     }
 
     minecraft {

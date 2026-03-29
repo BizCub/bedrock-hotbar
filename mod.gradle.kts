@@ -29,14 +29,14 @@ project.extensions.configure<MultiLoader>("multiloader") {
 
     addRepository("https://maven.shedaniel.me")
     addRepository("https://maven.ryanliptak.com")
-    addDependency("me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}", "api")
-    if (scp < "26.1") addDependency("squeek.appleskin:appleskin-${mod.loader}:${getProp("appleskin")}", "implementation")
+    addDependency("api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}")
+    if (scp < "26.1") addDependency("implementation", "squeek.appleskin:appleskin-${mod.loader}:${getProp("appleskin")}")
 
     if (isFabric) {
         addRepository("https://maven.terraformersmc.com/releases")
 
-        addDependency("net.fabricmc:fabric-loader:latest.release", "implementation")
-        addDependency("com.terraformersmc:modmenu:${getProp("modmenu")}", "api")
+        addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
+        addDependency("api", "com.terraformersmc:modmenu:${getProp("modmenu")}")
     }
 
     if (isNeoForge) {

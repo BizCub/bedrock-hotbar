@@ -19,11 +19,8 @@ public interface ContextualBarRendererMixin {
         return Main.operation(instance.getGuiScaledHeight());
     }
 
-    //~ if >=26.1 'renderExperienceLevel' -> 'extractExperienceLevel'
-    @ModifyArgs(method = "extractExperienceLevel", at = @At(value = "INVOKE", target =
-            /*? >=26.1*/ "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;IIIZ)V"
-            /*? <=1.21.11*/ //"Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;IIIZ)V"
-    ))
+    /*~ if >=26.1 'renderExperienceLevel' -> 'extractExperienceLevel' */ /*~ if >=26.1 ';drawString(' -> ';text('*/
+    @ModifyArgs(method = "extractExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;text(Lnet/minecraft/client/gui/Font;Lnet/minecraft/network/chat/Component;IIIZ)V"))
     private static void experienceLevel(Args args) {
         Main.renderExperienceLevel(args);
     }

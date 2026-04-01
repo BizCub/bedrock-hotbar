@@ -14,4 +14,8 @@ public class Compat {
         /*? (forge && <26.1) || neoforge*/ //return ModList.get().isLoaded(modId);
         /*? forge && >=26.1*/ //return ModList.isLoaded(modId);
     }
+
+    public static boolean isClothConfigLoaded() {
+        return isModLoaded(clothConfigId);
+    }
 }

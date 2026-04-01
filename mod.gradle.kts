@@ -30,12 +30,13 @@ project.extensions.configure<MultiLoader>("multiloader") {
     addRepository("https://maven.shedaniel.me")
     addRepository("https://maven.ryanliptak.com")
     addDependency("api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getProp("cloth_config")}")
-    if (scp < "26.1") addDependency("implementation", "squeek.appleskin:appleskin-${mod.loader}:${getProp("appleskin")}")
+    addDependency("implementation", "squeek.appleskin:appleskin-${mod.loader}:${getProp("appleskin")}")
 
     if (isFabric) {
         addRepository("https://maven.terraformersmc.com/releases")
 
         addDependency("implementation", "net.fabricmc:fabric-loader:latest.release")
+        addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getProp("fabric_api")}")
         addDependency("api", "com.terraformersmc:modmenu:${getProp("modmenu")}")
     }
 
@@ -47,11 +48,13 @@ project.extensions.configure<MultiLoader>("multiloader") {
         modrinth {
             if (isClothConfigAvailable) optional("cloth-config")
             if (isAppleSkinAvailable) optional("appleskin")
+            if (isFabric) requires("fabric-api")
             if (isFabric) optional("modmenu")
         }
         curseforge {
             if (isClothConfigAvailable) optional("cloth-config")
             if (isAppleSkinAvailable) optional("appleskin")
+            if (isFabric) requires("fabric-api")
             if (isFabric) optional("modmenu")
         }
     }

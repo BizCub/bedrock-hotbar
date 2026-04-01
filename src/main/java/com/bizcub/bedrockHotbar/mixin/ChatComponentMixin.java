@@ -1,6 +1,7 @@
 package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
+import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.Configs;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,7 +35,7 @@ public class ChatComponentMixin {
 
     @Unique
     private int offset(int offset) {
-        return Configs.getInstance().chatOffset
+        return (Compat.isClothConfigLoaded() && Configs.getInstance().chatOffset)
                 ? Main.operation(offset)
                 : offset;
     }

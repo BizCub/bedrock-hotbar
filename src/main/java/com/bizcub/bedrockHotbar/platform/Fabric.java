@@ -11,7 +11,7 @@ public class Fabric implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        if (Compat.isModLoaded(Compat.clothConfigId)) Configs.init();
+        if (Compat.isClothConfigLoaded()) Configs.init();
     }
 
     public static class ModMenu implements ModMenuApi {

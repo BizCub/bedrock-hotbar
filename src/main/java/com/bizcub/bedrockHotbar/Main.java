@@ -20,14 +20,14 @@ public class Main {
         else args.set(3, -10);
         args.set(5, true);
 
-        if (Compat.isModLoaded(Compat.clothConfigId) && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline)) {
+        if (Compat.isClothConfigLoaded() && (Configs.getInstance().xpLevelMode == Configs.XpLevelMode.Outline)) {
             if (!number) args.set(3, offset);
             args.set(5, false);
         }
     }
 
     public static int operation(int x) {
-        if (Compat.isModLoaded(Compat.clothConfigId))
+        if (Compat.isClothConfigLoaded())
             return x - Configs.getInstance().offset;
         return x - Main.DEF_OFFSET;
     }

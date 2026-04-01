@@ -42,7 +42,7 @@ public abstract class RenderBottomOfTextureMixin {
     /*? <=1.20.6 && >=1.20.5*/ //GuiGraphicsExtractor context, float f,
     /*? <=1.20.4*/ //float f, GuiGraphicsExtractor context,
     CallbackInfo ci) {
-        if (Compat.isModLoaded(Compat.clothConfigId) && !Configs.getInstance().renderTexture) return;
+        if (Compat.isClothConfigLoaded() && !Configs.getInstance().renderTexture) return;
 
         int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
         int x = context.guiWidth() / 2 - 91 - 1 + selectedSlot * 20;

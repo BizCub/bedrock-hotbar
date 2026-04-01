@@ -1,1 +1,1 @@
-* Now the actionbar is also offset along with other elements
+* Chat will now be offset along with other interface elements

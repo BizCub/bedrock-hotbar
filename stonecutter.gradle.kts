@@ -1,8 +1,11 @@
 plugins {
     alias(libs.plugins.stonecutter)
+    alias(libs.plugins.multiloader)
 }
 
-stonecutter active "26.1.1-fabric"
+multiloader.createDepFile()
+
+stonecutter active "26.1.2-fabric"
 
 stonecutter parameters {
     val (version, loader) = current.project.split('-', limit = 2)

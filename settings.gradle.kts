@@ -20,10 +20,9 @@ rootProject.name = extra["mod.name"] as String
 stonecutter.create(rootProject) {
     val fb = "fabric"; val nf = "neoforge"
     fun match(version: String, vararg loaders: String) = loaders.forEach {
-        var suffix = if (it == "forge" && sc.eval(version, "<26.1")) ".arch" else ""
-        version("$version-$it", version).buildscript = "scripts/$it$suffix.gradle.kts"
+        version("$version-$it", version).buildscript = "scripts/$it.gradle.kts"
     }
-    match("26.1.1", fb, nf)
+    match("26.1.2", fb, nf)
     match("1.21.11", fb, nf)
     match("1.21.8", fb, nf)
     match("1.21.5", fb, nf)

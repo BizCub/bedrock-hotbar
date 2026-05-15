@@ -1,10 +1,13 @@
 import com.bizcub.multiloader.MultiLoader
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
-import me.modmuss50.mpp.ModPublishExtension
+
+apply(plugin = "dev.kikugie.fletching-table")
 
 val stonecutter = project.extensions.getByType(StonecutterBuildExtension::class.java)
 
 project.extensions.configure<MultiLoader>("multiloader") {
+    access()
+
     project.afterEvaluate {
         stonecutter.let { sc ->
             sc.replacements {
@@ -27,36 +30,18 @@ project.extensions.configure<MultiLoader>("multiloader") {
         }
     }
 
-    addRepository("https://maven.shedaniel.me")
-    addRepository("https://maven.ryanliptak.com")
-    addDependency("api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config")?.split("+")?.first()}")
+    addDependency("maven.shedaniel.me", "api", "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config")?.split("+")?.first()}")
     val appleskin = getDep("appleskin").split("+")
-    addDependency("implementation", "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}")
+    addDependency("maven.ryanliptak.com", "implementation", "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}")
 
     if (isFabric) {
-        addRepository("https://maven.terraformersmc.com/releases")
-
         addDependency("implementation", "net.fabricmc:fabric-loader:${getDep("fabric")}")
         addDependency("implementation", "net.fabricmc.fabric-api:fabric-api:${getDep("fabric-api")}")
-        addDependency("api", "com.terraformersmc:modmenu:${getDep("modmenu")}")
+        addDependency("maven.terraformersmc.com/releases", "api", "com.terraformersmc:modmenu:${getDep("modmenu")}")
     }
 
-    if (isNeoForge) {
-        addRepository("https://maven.neoforged.net/releases")
-    }
-
-    project.extensions.configure<ModPublishExtension>("publishMods") {
-        modrinth {
-            if (isClothConfigAvailable) optional("cloth-config")
-            if (isAppleSkinAvailable) optional("appleskin")
-            if (isFabric) requires("fabric-api")
-            if (isFabric) optional("modmenu")
-        }
-        curseforge {
-            if (isClothConfigAvailable) optional("cloth-config")
-            if (isAppleSkinAvailable) optional("appleskin")
-            if (isFabric) requires("fabric-api")
-            if (isFabric) optional("modmenu")
-        }
-    }
+    if (isClothConfigAvailable) addPublishDep("optional", "cloth-config")
+    if (isAppleSkinAvailable) addPublishDep("optional", "appleskin")
+    if (isFabric) addPublishDep("requires", "fabric-api")
+    if (isFabric) addPublishDep("optional", "modmenu")
 }

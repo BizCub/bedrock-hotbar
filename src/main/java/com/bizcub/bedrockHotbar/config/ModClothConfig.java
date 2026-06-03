@@ -8,20 +8,20 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
 @Config(name = Main.MOD_ID)
-public class Configs implements ConfigData {
+public class ModClothConfig implements ModConfig, ConfigData {
 
     @ConfigEntry.BoundedDiscrete(min = Main.MIN_OFFSET, max = Main.MAX_OFFSET)
-    public int offset = Main.DEF_OFFSET;
+    public int offset = ModConfig.super.offset();
 
     //? >=1.20.2 {
     @ConfigEntry.Gui.Tooltip
-    public boolean renderTexture = true;//?}
+    public boolean renderTexture = ModConfig.super.renderTexture();//?}
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-    public XpLevelMode xpLevelMode = XpLevelMode.Shadow;
+    public XpLevelMode xpLevelMode = ModConfig.super.xpLevelMode();
 
-    public boolean chatOffset = false;
+    public boolean chatOffset = ModConfig.super.chatOffset();
 
     public enum XpLevelMode {
         Shadow("text.bedrock_hotbar.option.xpLevelMode.shadow"),
@@ -39,11 +39,7 @@ public class Configs implements ConfigData {
         }
     }
 
-    public static Configs getInstance() {
-        return AutoConfig.getConfigHolder(Configs.class).getConfig();
-    }
-
-    public static void init() {
-        AutoConfig.register(Configs.class, GsonConfigSerializer::new);
+    public static ModClothConfig getInstance() {
+        return AutoConfig.register(ModClothConfig.class, GsonConfigSerializer::new).getConfig();
     }
 }

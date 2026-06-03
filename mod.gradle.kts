@@ -10,7 +10,16 @@ project.extensions.configure<MultiLoader>("multiloader") {
 
     project.afterEvaluate {
         stonecutter.let { sc ->
+            sc.constants["is_cloth_config_available"] = isClothConfigAvailable
+
             sc.replacements {
+                string(scp >= "26.2", "contextual_bar") {
+                    replace("ContextualBarRenderer", "ContextualBar")
+                }
+                string(scp >= "26.2") {
+                    replace("net.minecraft.client.gui.Gui;", "net.minecraft.client.gui.Hud;")
+                    replace("Gui.class", "Hud.class")
+                }
                 string(scp >= "26.1") {
                     replace("GuiGraphics", "GuiGraphicsExtractor")
                 }
@@ -19,6 +28,9 @@ project.extensions.configure<MultiLoader>("multiloader") {
                 }
                 string(scp >= "1.21.11") {
                     replace("ResourceLocation", "Identifier")
+                }
+                string(scp >= "1.21.11" && !isForge, "auto_config") {
+                    replace("AutoConfig", "AutoConfigClient")
                 }
                 string(scp >= "1.21.5") {
                     replace(".selected", ".getSelectedSlot()")

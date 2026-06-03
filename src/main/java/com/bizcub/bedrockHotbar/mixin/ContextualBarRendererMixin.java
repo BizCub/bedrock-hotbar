@@ -7,11 +7,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-//? >=1.21.6 {
+/*? >=1.21.6 {*///~ contextual_bar
 import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.gui.contextualbar.ContextualBarRenderer;
 
-@Mixin(ContextualBarRenderer.class)
+@Mixin(ContextualBarRenderer.class) //~ !contextual_bar
 public interface ContextualBarRendererMixin {
 
     @Redirect(method = "top", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/platform/Window;getGuiScaledHeight()I"))

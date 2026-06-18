@@ -1,9 +1,8 @@
 package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
-import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.ModClothConfig;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -12,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 //? >=1.20.5 {
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class GuiMixin {
 
     //~ if >=26.1 'render' -> 'extract' {
@@ -42,7 +41,7 @@ public class GuiMixin {
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.Font;
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public class GuiMixin {
 
     @Shadow private int screenHeight;
@@ -77,7 +76,7 @@ public class GuiMixin {
     //? <=1.19.4 {
     /^@Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))
     private static int experienceLevel(Font instance, PoseStack poseStack, String string, float k, float l, int color) {
-        if (Compat.isModLoaded(Compat.clothConfigId) && (Main.getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.Outline))
+        if (Main.getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.OUTLINE)
             return instance.draw(poseStack, string, k, (int) l - 3, color);
         if (color != 0) return instance.drawShadow(poseStack, string, k, (int) l - 3, color);
         else return instance.draw(poseStack, string, k, -10, color);

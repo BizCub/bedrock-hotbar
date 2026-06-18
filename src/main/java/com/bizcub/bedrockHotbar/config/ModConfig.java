@@ -14,7 +14,7 @@ public interface ModConfig {
     }
 
     default ModClothConfig.XpLevelMode xpLevelMode() {
-        return ModClothConfig.XpLevelMode.Shadow;
+        return ModClothConfig.XpLevelMode.SHADOW;
     }
 
     default boolean chatOffset() {

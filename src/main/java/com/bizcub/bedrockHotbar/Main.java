@@ -1,6 +1,5 @@
 package com.bizcub.bedrockHotbar;
 
-import com.bizcub.bedrockHotbar.config.Compat;
 import com.bizcub.bedrockHotbar.config.ModClothConfig;
 import com.bizcub.bedrockHotbar.config.ModConfig;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
@@ -29,15 +28,13 @@ public class Main {
         else args.set(3, -10);
         args.set(5, true);
 
-        if (Compat.isClothConfigLoaded() && (getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.Outline)) {
+        if (getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.OUTLINE) {
             if (!number) args.set(3, offset);
             args.set(5, false);
         }
     }
 
     public static int operation(int x) {
-        if (Compat.isClothConfigLoaded())
-            return x - getConfig().offset();
-        return x - Main.DEF_OFFSET;
+        return x - getConfig().offset();
     }
 }

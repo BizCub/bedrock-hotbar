@@ -1,8 +1,7 @@
 package com.bizcub.bedrockHotbar.mixin;
 
 import com.bizcub.bedrockHotbar.Main;
-import com.bizcub.bedrockHotbar.config.Compat;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -28,7 +27,7 @@ import net.minecraft.client.renderer.RenderType;
 *///?} >=1.20.2 {
 /*import net.minecraft.client.renderer.RenderType;*///?}
 
-@Mixin(Gui.class)
+@Mixin(Hud.class)
 public abstract class RenderBottomOfTextureMixin {
 
     @Shadow protected abstract Player getCameraPlayer();
@@ -37,16 +36,17 @@ public abstract class RenderBottomOfTextureMixin {
     //~ hotbar
     @Inject(method = "extractItemHotbar", at = @At(value = "TAIL"))
     private void renderTexture(
-    /*? >=1.21*/ GuiGraphicsExtractor context, DeltaTracker deltaTracker,
-    /*? <=1.20.6 && >=1.20.5*/ //GuiGraphicsExtractor context, float f,
-    /*? <=1.20.4*/ //float f, GuiGraphicsExtractor context,
-    CallbackInfo ci) {
-        if (Compat.isClothConfigLoaded() && !Main.getConfig().renderTexture()) return;
+            /*? >=1.21*/ GuiGraphicsExtractor graphics, DeltaTracker deltaTracker,
+            /*? <=1.20.6 && >=1.20.5*/ //GuiGraphicsExtractor graphics, float f,
+            /*? <=1.20.4*/ //float f, GuiGraphicsExtractor graphics,
+            CallbackInfo ci
+    ) {
+        if (!Main.getConfig().renderTexture()) return;
 
         int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
-        int x = context.guiWidth() / 2 - 91 - 1 + selectedSlot * 20;
-        int y = Main.operation(context.guiHeight());
-        context.blitSprite(
+        int x = graphics.guiWidth() / 2 - 91 - 1 + selectedSlot * 20;
+        int y = Main.operation(graphics.guiHeight());
+        graphics.blitSprite(
             /*? >=1.21.6*/ RenderPipelines.GUI_TEXTURED,
             /*? <=1.21.5 && >=1.21.2*/ //RenderType::guiTextured,
             HOTBAR_SELECTION_SPRITE, 24, 23, 0, 0, x, y, 24, 1
@@ -55,5 +55,5 @@ public abstract class RenderBottomOfTextureMixin {
 }
 
 //?} <=1.20.1 {
-/*@Mixin(Gui.class)
+/*@Mixin(Hud.class)
 public class RenderBottomOfTextureMixin {}*///?}

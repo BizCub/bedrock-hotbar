@@ -1,1 +1,1 @@
-* Chat will now be offset along with other interface elements
+* Updated to 26.2

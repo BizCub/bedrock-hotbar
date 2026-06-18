@@ -23,9 +23,30 @@ public class ModClothConfig implements ModConfig, ConfigData {
 
     public boolean chatOffset = ModConfig.super.chatOffset();
 
+    @Override
+    public int offset() {
+        return this.offset;
+    }
+
+    //? >=1.20.2 {
+    @Override
+    public boolean renderTexture() {
+        return this.renderTexture;
+    }//?}
+
+    @Override
+    public XpLevelMode xpLevelMode() {
+        return this.xpLevelMode;
+    }
+
+    @Override
+    public boolean chatOffset() {
+        return this.chatOffset;
+    }
+
     public enum XpLevelMode {
-        Shadow("text.bedrock_hotbar.option.xpLevelMode.shadow"),
-        Outline("text.bedrock_hotbar.option.xpLevelMode.outline");
+        SHADOW("text.bedrock_hotbar.option.xpLevelMode.shadow"),
+        OUTLINE("text.bedrock_hotbar.option.xpLevelMode.outline");
 
         private final String key;
 

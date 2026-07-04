@@ -11,23 +11,23 @@ mod.github="bedrock-hotbar"
 
 ### Subprojects
 ["26.2"]
-pub_end="latest"
+pub-end="latest"
 
 ["1.21.8"]
-pub_end="1.21.10"
+pub-end="1.21.10"
 
 ["1.21.3"]
-pub_end="1.21.4"
+pub-end="1.21.4"
 
 ["1.20.2"]
-pub_end="1.20.4"
+pub-end="1.20.4"
 
 ["1.19.4"]
-pub_start="1.19.3"
+pub-start="1.19.3"
 
 ["1.17.1"]
-pub_start="1.17"
-pub_end="1.19.2"
+pub-start="1.17"
+pub-end="1.19.2"
 
 ["1.16.5"]
-pub_start="1.16"
+pub-start="1.16"

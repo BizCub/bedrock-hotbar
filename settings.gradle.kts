@@ -13,15 +13,10 @@ pluginManagement {
 
 plugins {
     id("dev.kikugie.stonecutter") version "0.9+"
+    id("com.bizcub.multiloader") version "0.7+"
 }
 
-rootProject.name = extra["mod.name"] as String
-
-stonecutter.create(rootProject) {
-    val fb = "fabric"; val nf = "neoforge"
-    fun match(version: String, vararg loaders: String) = loaders.forEach {
-        version("$version-$it", version).buildscript.set("buildscripts/$it.gradle.kts")
-    }
+multiloader {
     match("26.2",   fb, nf)
     match("26.1.2", fb, nf)
     match("1.21.11",fb, nf)

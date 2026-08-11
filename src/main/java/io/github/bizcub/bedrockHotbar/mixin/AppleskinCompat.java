@@ -3,11 +3,11 @@ package io.github.bizcub.bedrockHotbar.mixin;
 import io.github.bizcub.bedrockHotbar.Main;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import squeek.appleskin.client.HUDOverlayHandler;
 
 //? neoforge {
 /*import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import squeek.appleskin.client.HUDOverlayHandler;
 
 @Mixin(HUDOverlayHandler.Overlay.class)
 public class AppleskinCompat {
@@ -20,6 +20,7 @@ public class AppleskinCompat {
 
 *///?} <=1.20.4 {
 /*import org.spongepowered.asm.mixin.injection.ModifyVariable;
+import squeek.appleskin.client.HUDOverlayHandler;
 
 @Mixin(HUDOverlayHandler.class)
 public class AppleskinCompat {

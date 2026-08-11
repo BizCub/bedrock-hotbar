@@ -15,8 +15,8 @@ public class GuiMixin {
 
     //~ if >=26.1 'render' -> 'extract' {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"), method = {
-            /*? fabric*/ "extractPlayerHealth", "extractSelectedItemName",
-            /*? !fabric*/ //"extractHealthLevel", "extractArmorLevel", "extractFoodLevel", "extractAirLevel", "extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;I)V",
+            /*? fabric || forge {*/ "extractPlayerHealth", "extractSelectedItemName*",
+            /*?} else*/ //"extractHealthLevel", "extractArmorLevel", "extractFoodLevel", "extractAirLevel", "extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;I)V",
             "extractOverlayMessage", "extractVehicleHealth", "extractItemHotbar"
     })
     private int offsetMountHealth(GuiGraphicsExtractor instance) {

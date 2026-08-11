@@ -42,7 +42,7 @@ multiloader {
     addDependency(
         dependency = "io.github.bizcub:simple-config-lib:1.0-${mod.loader}+${mod.mc}"
     )
-    val isClothConfigAvailable = !(isForge && scp > "1.21.3")
+    val isClothConfigAvailable = !isForge || scp <= "1.21.3"
     addDependency(
         dependency = "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config").split("+").first()}",
         configuration = if (isClothConfigAvailable) "implementation" else "compileOnly",
@@ -50,13 +50,15 @@ multiloader {
         isPublishDepEnabled = isClothConfigAvailable,
         publishProjectId = "cloth-config"
     )
-    val appleskin = getDep("appleskin").split("+")
-    addDependency(
-        dependency = "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}",
-        repository = "maven.ryanliptak.com",
-        isPublishDepEnabled = true,
-        publishProjectId = "appleskin"
-    )
+    if (!isForge || scp <= "1.20.4") {
+        val appleskin = getDep("appleskin").split("+")
+        addDependency(
+            dependency = "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}",
+            repository = "maven.ryanliptak.com",
+            isPublishDepEnabled = true,
+            publishProjectId = "appleskin"
+        )
+    }
 
     if (isFabric) {
         addDependency(

@@ -1,6 +1,6 @@
-package com.bizcub.bedrockHotbar.mixin;
+package io.github.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.Main;
 import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

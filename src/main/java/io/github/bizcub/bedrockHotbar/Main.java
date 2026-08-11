@@ -1,7 +1,7 @@
-package com.bizcub.bedrockHotbar;
+package io.github.bizcub.bedrockHotbar;
 
-import com.bizcub.bedrockHotbar.config.ModClothConfig;
-import com.bizcub.bedrockHotbar.config.ModConfig;
+import io.github.bizcub.bedrockHotbar.config.ModClothConfig;
+import io.github.bizcub.bedrockHotbar.config.ModConfig;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 public class Main {

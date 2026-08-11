@@ -1,8 +1,8 @@
 //? neoforge {
-/*package com.bizcub.bedrockHotbar.platform;
+/*package io.github.bizcub.bedrockHotbar.platform;
 
-import com.bizcub.bedrockHotbar.Main;
-import com.bizcub.bedrockHotbar.config.Compat;
+import io.github.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.config.Compat;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class NeoForge {
 
     public NeoForge() {
-        if (Compat.isModLoaded(Compat.clothConfigId)) {
+        if (Compat.isClothConfigLoaded()) {
             Main.init();
 
             ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (container, parent) -> {

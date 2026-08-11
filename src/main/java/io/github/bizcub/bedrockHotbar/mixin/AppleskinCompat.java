@@ -1,6 +1,6 @@
-package com.bizcub.bedrockHotbar.mixin;
+package io.github.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.Main;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import squeek.appleskin.client.HUDOverlayHandler;

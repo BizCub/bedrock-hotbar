@@ -1,6 +1,6 @@
 {
     "required": true,
-    "package": "com.bizcub.bedrockHotbar.mixin",
+    "package": "io.github.bizcub.bedrockHotbar.mixin",
     "injectors": {
         "defaultRequire": 1
     },

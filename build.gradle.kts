@@ -1,7 +1,5 @@
 plugins {
-    id("me.modmuss50.mod-publish-plugin")
-    id("dev.kikugie.fletching-table")
-    id("com.bizcub.multiloader")
+    id("io.github.bizcub.multiloader")
 }
 
 multiloader {
@@ -40,12 +38,18 @@ multiloader {
     setMREnvironment(mrEnvs.clientOnly)
     setCFEnvironment(cfEnvs.client)
 
+    versionRange("26.2", to = "latest")
+    versionRange("1.21.8", to = "1.21.10")
+    versionRange("1.21.3", to = "1.21.4")
+    versionRange("1.20.2", to = "1.20.4")
+
     addDependency(
         dependency = "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config").split("+").first()}",
         repository = "maven.shedaniel.me",
         isPublishDepEnabled = true,
         publishProjectId = "cloth-config"
     )
+
     val appleskin = getDep("appleskin").split("+")
     addDependency(
         dependency = "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}",

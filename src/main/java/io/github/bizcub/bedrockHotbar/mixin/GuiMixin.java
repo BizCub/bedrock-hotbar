@@ -1,7 +1,6 @@
-package com.bizcub.bedrockHotbar.mixin;
+package io.github.bizcub.bedrockHotbar.mixin;
 
-import com.bizcub.bedrockHotbar.Main;
-import com.bizcub.bedrockHotbar.config.ModClothConfig;
+import io.github.bizcub.bedrockHotbar.Main;
 import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,21 +37,14 @@ public class GuiMixin {
 
 //?} <=1.20.4 {
 /*import org.objectweb.asm.Opcodes;
-import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.gui.Font;
 
 @Mixin(Hud.class)
 public class GuiMixin {
 
     @Shadow private int screenHeight;
 
-    @ModifyArg(method = "render", index = 1, at = @At(value = "INVOKE", ordinal = 0, target =
-            /^? >=1.19.3^/ "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"
-            /^? >=1.17 && <=1.19.2^/ //"Lcom/mojang/blaze3d/vertex/PoseStack;translate(DDD)V"
-            /^? <=1.16.5^/ //"Lcom/mojang/blaze3d/systems/RenderSystem;translatef(FFF)V"
-    ))
-    /^? !(>=1.17 && <=1.19.2)^/ private float offsetActionbar(float value) {
-    /^? >=1.17 && <=1.19.2^/ //private double offsetActionbar(double value) {
+    @ModifyArg(method = "render", index = 1, at = @At(value = "INVOKE", ordinal = 0, target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V"))
+    private float offsetActionbar(float value) {
         return Main.operation((int) value);
     }
 
@@ -61,24 +53,14 @@ public class GuiMixin {
         return Main.operation(screenHeight);
     }
 
-    //? >=1.20 {
     @ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
         Main.renderExperienceLevel(args);
-    }//?}
+    }
 
     //? <=1.20.1 {
     /^@ModifyConstant(method = "renderHotbar", constant = @Constant(intValue = 22, ordinal = 4))
     private int resizeSelection(int value) {
         return 24;
-    }^///?}
-
-    //? <=1.19.4 {
-    /^@Redirect(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Font;draw(Lcom/mojang/blaze3d/vertex/PoseStack;Ljava/lang/String;FFI)I"))
-    private static int experienceLevel(Font instance, PoseStack poseStack, String string, float k, float l, int color) {
-        if (Main.getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.OUTLINE)
-            return instance.draw(poseStack, string, k, (int) l - 3, color);
-        if (color != 0) return instance.drawShadow(poseStack, string, k, (int) l - 3, color);
-        else return instance.draw(poseStack, string, k, -10, color);
     }^///?}
 }*///?}

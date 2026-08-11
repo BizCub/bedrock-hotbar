@@ -1,6 +1,6 @@
-package com.bizcub.bedrockHotbar.config;
+package io.github.bizcub.bedrockHotbar.config;
 
-import com.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.Main;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
 import me.shedaniel.autoconfig.annotation.Config;

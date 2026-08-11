@@ -1,8 +1,8 @@
 //? fabric {
-package com.bizcub.bedrockHotbar.platform;
+package io.github.bizcub.bedrockHotbar.platform;
 
-import com.bizcub.bedrockHotbar.Main;
-import com.bizcub.bedrockHotbar.config.Compat;
+import io.github.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.config.Compat;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.ClientModInitializer;

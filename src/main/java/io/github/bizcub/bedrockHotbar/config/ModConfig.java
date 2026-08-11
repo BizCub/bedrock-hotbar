@@ -1,6 +1,6 @@
-package com.bizcub.bedrockHotbar.config;
+package io.github.bizcub.bedrockHotbar.config;
 
-import com.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.Main;
 
 public interface ModConfig {
     ModConfig CONFIG = Compat.isClothConfigLoaded() ? ModClothConfig.getInstance() : new ModConfig() { };

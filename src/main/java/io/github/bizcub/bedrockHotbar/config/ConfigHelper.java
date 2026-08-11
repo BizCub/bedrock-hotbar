@@ -7,7 +7,7 @@ import net.minecraft.client.gui.screens.Screen;
 /*? forge*/ //import net.minecraftforge.fml.ModList;
 /*? neoforge*/ //import net.neoforged.fml.ModList;
 
-public class Compat {
+public class ConfigHelper {
     public static boolean isModLoaded(String modId) {
         /*? fabric*/ return FabricLoader.getInstance().isModLoaded(modId);
         /*? (forge && <26.1) || neoforge*/ //return ModList.get().isLoaded(modId);
@@ -18,8 +18,17 @@ public class Compat {
         return isModLoaded(/*$ cloth_config_id >> ')'*/ "cloth-config");
     }
 
-    //? is_cloth_config_available {
+    public static boolean isSimpleConfigLoaded() {
+        return isModLoaded("simple_config_lib");
+    }
+
     public static Screen getScreen(Screen parent) {
-        return AutoConfigClient.getConfigScreen(ModClothConfig.class, parent).get();
-    }//?}
+        if (isSimpleConfigLoaded()) {
+            return SimpleConfig.getInstance().createScreen(parent);
+        } else if (isClothConfigLoaded()) {
+            return AutoConfigClient.getConfigScreen(ClothConfig.class, parent).get();
+        } else {
+            return parent;
+        }
+    }
 }

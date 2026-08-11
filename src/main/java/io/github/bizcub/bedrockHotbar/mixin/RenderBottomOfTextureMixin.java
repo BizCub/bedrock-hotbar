@@ -1,6 +1,7 @@
 package io.github.bizcub.bedrockHotbar.mixin;
 
 import io.github.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.config.Config;
 import net.minecraft.client.gui.Hud;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -41,7 +42,7 @@ public abstract class RenderBottomOfTextureMixin {
             /*? <=1.20.4*/ //float f, GuiGraphicsExtractor graphics,
             CallbackInfo ci
     ) {
-        if (!Main.getConfig().renderTexture()) return;
+        if (!Config.get().renderTexture()) return;
 
         int selectedSlot = getCameraPlayer().getInventory().getSelectedSlot();
         int x = graphics.guiWidth() / 2 - 91 - 1 + selectedSlot * 20;

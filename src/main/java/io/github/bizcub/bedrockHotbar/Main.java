@@ -1,7 +1,6 @@
 package io.github.bizcub.bedrockHotbar;
 
-import io.github.bizcub.bedrockHotbar.config.ModClothConfig;
-import io.github.bizcub.bedrockHotbar.config.ModConfig;
+import io.github.bizcub.bedrockHotbar.config.*;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 public class Main {
@@ -12,11 +11,11 @@ public class Main {
     public static final int MAX_OFFSET = 100;
 
     public static void init() {
-        getConfig();
-    }
-
-    public static ModConfig getConfig() {
-        return ModConfig.CONFIG;
+        if (ConfigHelper.isSimpleConfigLoaded()) {
+            Config.set(SimpleConfig.getInstance().get());
+        } else if (ConfigHelper.isClothConfigLoaded()) {
+            Config.set(ClothConfig.getInstance());
+        }
     }
 
     public static void renderExperienceLevel(Args args) {
@@ -28,13 +27,13 @@ public class Main {
         else args.set(3, -10);
         args.set(5, true);
 
-        if (getConfig().xpLevelMode() == ModClothConfig.XpLevelMode.OUTLINE) {
+        if (Config.get().xpLevelMode() == XpLevelMode.OUTLINE) {
             if (!number) args.set(3, offset);
             args.set(5, false);
         }
     }
 
     public static int operation(int x) {
-        return x - getConfig().offset();
+        return x - Config.get().offset();
     }
 }

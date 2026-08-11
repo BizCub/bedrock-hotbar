@@ -2,7 +2,7 @@
 /*package io.github.bizcub.bedrockHotbar.platform;
 
 import io.github.bizcub.bedrockHotbar.Main;
-import io.github.bizcub.bedrockHotbar.config.Compat;
+import io.github.bizcub.bedrockHotbar.config.ConfigHelper;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -11,12 +11,9 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 public class NeoForge {
 
     public NeoForge() {
-        if (Compat.isClothConfigLoaded()) {
-            Main.init();
+        Main.init();
 
-            ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () -> (container, parent) -> {
-                return Compat.getScreen(parent);
-            });
-        }
+        ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, () ->
+            (container, parent) -> ConfigHelper.getScreen(parent));
     }
 }*///?}

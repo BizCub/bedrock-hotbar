@@ -3,10 +3,6 @@ plugins {
 }
 
 multiloader {
-    val isClothConfigAvailable = !(isForge && scp > "1.21.3")
-
-    sc.constants["is_cloth_config_available"] = isClothConfigAvailable
-
     sc.replacements {
         string(scp >= "26.2", "contextual_bar") {
             replace("ContextualBarRenderer", "ContextualBar")
@@ -44,12 +40,16 @@ multiloader {
     versionRange("1.20.2", to = "1.20.4")
 
     addDependency(
+        dependency = "io.github.bizcub:simple-config-lib:1.0-${mod.loader}+${mod.mc}"
+    )
+    val isClothConfigAvailable = !(isForge && scp > "1.21.3")
+    addDependency(
         dependency = "me.shedaniel.cloth:cloth-config-${mod.loader}:${getDep("cloth-config").split("+").first()}",
+        configuration = if (isClothConfigAvailable) "implementation" else "compileOnly",
         repository = "maven.shedaniel.me",
-        isPublishDepEnabled = true,
+        isPublishDepEnabled = isClothConfigAvailable,
         publishProjectId = "cloth-config"
     )
-
     val appleskin = getDep("appleskin").split("+")
     addDependency(
         dependency = "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}",

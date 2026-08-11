@@ -1,6 +1,7 @@
 package io.github.bizcub.bedrockHotbar.mixin;
 
 import io.github.bizcub.bedrockHotbar.Main;
+import io.github.bizcub.bedrockHotbar.config.Config;
 import com.mojang.blaze3d.vertex.PoseStack;
 /*? >=1.20.2*/ import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.components.ChatComponent;
@@ -27,7 +28,7 @@ public class ChatComponentMixin {
 
     @Unique
     private int offset(int offset) {
-        return Main.getConfig().chatOffset()
+        return Config.get().chatOffset()
                 ? Main.operation(offset)
                 : offset;
     }

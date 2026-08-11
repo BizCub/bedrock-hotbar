@@ -3,25 +3,28 @@ package io.github.bizcub.bedrockHotbar.config;
 import io.github.bizcub.bedrockHotbar.Main;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
-import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 
-@Config(name = Main.MOD_ID)
-public class ModClothConfig implements ModConfig, ConfigData {
+@me.shedaniel.autoconfig.annotation.Config(name = Main.MOD_ID)
+public class ClothConfig implements Config, ConfigData {
+
+    public static ClothConfig getInstance() {
+        return AutoConfig.register(ClothConfig.class, GsonConfigSerializer::new).getConfig();
+    }
 
     @ConfigEntry.BoundedDiscrete(min = Main.MIN_OFFSET, max = Main.MAX_OFFSET)
-    public int offset = ModConfig.super.offset();
+    public int offset = Config.super.offset();
 
     //? >=1.20.2 {
     @ConfigEntry.Gui.Tooltip
-    public boolean renderTexture = ModConfig.super.renderTexture();//?}
+    public boolean renderTexture = Config.super.renderTexture();//?}
 
     @ConfigEntry.Gui.Tooltip
     @ConfigEntry.Gui.EnumHandler(option = ConfigEntry.Gui.EnumHandler.EnumDisplayOption.BUTTON)
-    public XpLevelMode xpLevelMode = ModConfig.super.xpLevelMode();
+    public XpLevelMode xpLevelMode = Config.super.xpLevelMode();
 
-    public boolean chatOffset = ModConfig.super.chatOffset();
+    public boolean chatOffset = Config.super.chatOffset();
 
     @Override
     public int offset() {
@@ -42,25 +45,5 @@ public class ModClothConfig implements ModConfig, ConfigData {
     @Override
     public boolean chatOffset() {
         return this.chatOffset;
-    }
-
-    public enum XpLevelMode {
-        SHADOW("text.bedrock_hotbar.option.xpLevelMode.shadow"),
-        OUTLINE("text.bedrock_hotbar.option.xpLevelMode.outline");
-
-        private final String key;
-
-        XpLevelMode(String key) {
-            this.key = key;
-        }
-
-        @Override
-        public String toString() {
-            return this.key;
-        }
-    }
-
-    public static ModClothConfig getInstance() {
-        return AutoConfig.register(ModClothConfig.class, GsonConfigSerializer::new).getConfig();
     }
 }

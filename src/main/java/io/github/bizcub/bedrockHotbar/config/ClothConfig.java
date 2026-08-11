@@ -10,7 +10,11 @@ import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
 public class ClothConfig implements Config, ConfigData {
 
     public static ClothConfig getInstance() {
-        return AutoConfig.register(ClothConfig.class, GsonConfigSerializer::new).getConfig();
+        return AutoConfig.getConfigHolder(ClothConfig.class).getConfig();
+    }
+
+    public static void init() {
+        AutoConfig.register(ClothConfig.class, GsonConfigSerializer::new);
     }
 
     @ConfigEntry.BoundedDiscrete(min = Main.MIN_OFFSET, max = Main.MAX_OFFSET)

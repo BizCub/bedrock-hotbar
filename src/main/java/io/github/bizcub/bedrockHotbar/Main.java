@@ -19,19 +19,22 @@ public class Main {
         }
     }
 
-    public static void renderExperienceLevel(Args args) {
+    public static void renderExperienceLevel(Args args, boolean shouldChangeHeight) {
+        boolean isShadow = Config.get().xpLevelMode() == XpLevelMode.SHADOW;
         int color = args.get(4);
-        int offset = operation(args.get(3)) - 3;
-        boolean number = color == -8323296;
+        int offset = args.get(3);
 
-        if (number) args.set(3, offset);
-        else args.set(3, -10);
-        args.set(5, true);
-
-        if (Config.get().xpLevelMode() == XpLevelMode.OUTLINE) {
-            if (!number) args.set(3, offset);
-            args.set(5, false);
+        //~ if >=1.21.6 '8453920' -> '-8323296'
+        if (color == -8323296 || !isShadow) {
+            if (shouldChangeHeight) {
+                offset = operation(offset);
+            }
+        } else {
+            offset = -10;
         }
+
+        args.set(3, offset - 3);
+        args.set(5, isShadow);
     }
 
     public static int operation(int x) {

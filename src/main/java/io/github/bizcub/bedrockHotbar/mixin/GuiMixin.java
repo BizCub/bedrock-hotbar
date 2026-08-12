@@ -31,7 +31,7 @@ public class GuiMixin {
 
     @ModifyArgs(method = "renderExperienceLevel", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
-        Main.renderExperienceLevel(args);
+        Main.renderExperienceLevel(args, true);
     }*///?}
 }
 
@@ -55,7 +55,7 @@ public class GuiMixin {
 
     @ModifyArgs(method = "renderExperienceBar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;drawString(Lnet/minecraft/client/gui/Font;Ljava/lang/String;IIIZ)I"))
     private static void experienceLevel(Args args) {
-        Main.renderExperienceLevel(args);
+        Main.renderExperienceLevel(args,  false);
     }
 
     //? <=1.20.1 {

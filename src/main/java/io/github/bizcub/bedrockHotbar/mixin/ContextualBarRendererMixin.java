@@ -27,7 +27,5 @@ public interface ContextualBarRendererMixin {
 }
 
 //?} <=1.21.5 {
-/*import net.minecraft.client.gui.Hud;
-
-@Mixin(Hud.class)
+/*@Mixin(value = {})
 public interface ContextualBarRendererMixin {}*///?}

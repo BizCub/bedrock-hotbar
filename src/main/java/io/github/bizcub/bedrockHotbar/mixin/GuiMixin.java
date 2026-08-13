@@ -13,15 +13,16 @@ import net.minecraft.client.gui.GuiGraphicsExtractor;
 @Mixin(Hud.class)
 public class GuiMixin {
 
-    //~ if >=26.1 'render' -> 'extract' {
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"), method = {
-            /*? fabric || forge {*/ "extractPlayerHealth", "extractSelectedItemName*",
-            /*?} else*/ //"extractHealthLevel", "extractArmorLevel", "extractFoodLevel", "extractAirLevel", "extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;I)V",
-            "extractOverlayMessage", "extractVehicleHealth", "extractItemHotbar"
+            /*? forge*/ //"renderSelectedItemName*",
+            //~ render
+            /*? fabric || forge*/ "extractPlayerHealth", "extractSelectedItemName",
+            /*? neoforge*/ //"extractHealthLevel", "extractArmorLevel", "extractFoodLevel", "extractAirLevel", "extractSelectedItemName(Lnet/minecraft/client/gui/GuiGraphicsExtractor;I)V",
+            "extractOverlayMessage", "extractVehicleHealth", "extractItemHotbar"//~ !render
     })
     private int offsetMountHealth(GuiGraphicsExtractor instance) {
         return Main.operation(instance.guiHeight());
-    }//~}
+    }
 
     //? <=1.21.5 {
     /*@Redirect(method = {"renderJumpMeter", "renderExperienceBar"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/GuiGraphicsExtractor;guiHeight()I"))

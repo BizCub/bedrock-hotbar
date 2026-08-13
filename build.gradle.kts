@@ -17,6 +17,9 @@ multiloader {
         string(scp >= "26.1", "hotbar") {
             replace("renderItemHotbar", "extractItemHotbar")
         }
+        string(scp >= "26.1", "render") {
+            replace("render", "extract")
+        }
         string(scp >= "1.21.11") {
             replace("ResourceLocation", "Identifier")
         }
@@ -55,8 +58,6 @@ multiloader {
         addDependency(
             dependency = "squeek.appleskin:appleskin-${mod.loader}:${appleskin[1]}-${appleskin[0]}",
             repository = "maven.ryanliptak.com",
-            isPublishDepEnabled = true,
-            publishProjectId = "appleskin"
         )
     }
 

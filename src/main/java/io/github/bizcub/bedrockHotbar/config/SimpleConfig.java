@@ -19,6 +19,7 @@ public class SimpleConfig implements Config {
     public boolean renderTexture = Config.super.renderTexture();//?}
 
     @Tooltip
+    @EnumConfig(translate = true)
     public XpLevelMode xpLevelMode = Config.super.xpLevelMode();
 
     public boolean chatOffset = Config.super.chatOffset();

@@ -1,8 +1,8 @@
 package io.github.bizcub.bedrockHotbar.config;
 
 public enum XpLevelMode {
-    SHADOW("text.bedrock_hotbar.option.xpLevelMode.shadow"),
-    OUTLINE("text.bedrock_hotbar.option.xpLevelMode.outline");
+    SHADOW("text.bedrock_hotbar.enum.XpLevelMode.SHADOW"),
+    OUTLINE("text.bedrock_hotbar.enum.XpLevelMode.OUTLINE");
 
     private final String key;
 

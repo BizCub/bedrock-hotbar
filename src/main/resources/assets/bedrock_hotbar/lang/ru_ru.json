@@ -15,8 +15,8 @@
     "text.bedrock_hotbar.option.xpLevelMode.tooltip": "Отображать уровень опыта с ...",
     "text.bedrock_hotbar.option.chatOffset": "Смещать чат",
 
-    "text.bedrock_hotbar.option.xpLevelMode.shadow": "Тень",
-    "text.bedrock_hotbar.option.xpLevelMode.outline": "Контур",
+    "text.bedrock_hotbar.enum.XpLevelMode.SHADOW": "Тень",
+    "text.bedrock_hotbar.enum.XpLevelMode.OUTLINE": "Контур",
 
     "modmenu.descriptionTranslation.bedrock_hotbar": "Мод делает панель быстрого доступа в Java Edition такой же, как в Bedrock Edition"
 }

@@ -15,6 +15,6 @@
     "text.bedrock_hotbar.option.xpLevelMode.tooltip": "Display experience level with ...",
     "text.bedrock_hotbar.option.chatOffset": "Offset chat",
 
-    "text.bedrock_hotbar.option.xpLevelMode.shadow": "Shadow",
-    "text.bedrock_hotbar.option.xpLevelMode.outline": "Outline"
+    "text.bedrock_hotbar.enum.XpLevelMode.SHADOW": "Shadow",
+    "text.bedrock_hotbar.enum.XpLevelMode.OUTLINE": "Outline"
 }

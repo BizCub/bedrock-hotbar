@@ -42,11 +42,12 @@ multiloader {
     versionRange("1.21.3", to = "1.21.4")
     versionRange("1.20.2", to = "1.20.4")
 
-    addDependency(
-        dependency = "io.github.bizcub:simple-config-lib:1.0-${mod.loader}+${mod.mc}"
-    )
     if (isFabric) addDependency(
         dependency = "maven.modrinth:smooth-scroll:${getDep("smooth-scroll", true)}"
+    )
+    addDependency(
+        dependency = "maven.modrinth:simple-config-lib:${getDep("simple-config-lib")}",
+        isPublishDepEnabled = true
     )
     val isClothConfigAvailable = !isForge || scp <= "1.21.3"
     addDependency(

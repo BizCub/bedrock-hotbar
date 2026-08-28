@@ -1,6 +1,7 @@
 package io.github.bizcub.bedrockHotbar.config;
 
 //~ auto_config
+import io.github.bizcub.simpleConfigLib.autoconfig.gui.AutoConfigScreen;
 import me.shedaniel.autoconfig.AutoConfigClient;
 import net.minecraft.client.gui.screens.Screen;
 /*? fabric*/ import net.fabricmc.loader.api.FabricLoader;
@@ -24,11 +25,11 @@ public class ConfigHelper {
 
     public static Screen getScreen(Screen parent) {
         if (isSimpleConfigLoaded()) {
-            return SimpleConfig.getInstance().createScreen(parent);
-        } else if (isClothConfigLoaded()) {
-            return AutoConfigClient.getConfigScreen(ClothConfig.class, parent).get();
-        } else {
-            return parent;
+            return AutoConfigScreen.create(SimpleConfig.getInstance(), parent);
         }
+        if (isClothConfigLoaded()) {
+            return AutoConfigClient.getConfigScreen(ClothConfig.class, parent).get();
+        }
+        return parent;
     }
 }

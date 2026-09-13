@@ -2,9 +2,10 @@ package io.github.bizcub.bedrockHotbar.config;
 
 import io.github.bizcub.bedrockHotbar.Main;
 import io.github.bizcub.simpleConfigLib.autoconfig.ConfigHolder;
+import io.github.bizcub.simpleConfigLib.autoconfig.ConfigSide;
 import io.github.bizcub.simpleConfigLib.autoconfig.annotation.*;
 
-@AutoConfig(name = Main.MOD_ID, translate = true)
+@AutoConfig(name = Main.MOD_ID, fileName = Main.MOD_ID + "_scl", side = ConfigSide.CLIENT, translate = true)
 public class SimpleConfig implements Config {
 
     public static ConfigHolder<SimpleConfig> getInstance() {

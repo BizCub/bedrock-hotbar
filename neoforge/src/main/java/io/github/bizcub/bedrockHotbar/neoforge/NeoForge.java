@@ -1,4 +1,4 @@
-package io.github.bizcub.bedrockHotbar.platform;
+package io.github.bizcub.bedrockHotbar.neoforge;
 
 import io.github.bizcub.bedrockHotbar.Main;
 import io.github.bizcub.bedrockHotbar.config.ConfigHelper;

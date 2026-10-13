@@ -2,7 +2,6 @@ package io.github.bizcub.bedrockHotbar.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 
-//? fabric {
 import io.github.bizcub.bedrockHotbar.config.Config;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.gui.Hud;
@@ -18,11 +17,3 @@ public class SmoothScrollMaskMixin {
         graphics.enableScissor(x1, y1 - offset, x2, y2 - offset);
     }
 }
-
-//?} else {
-/*import net.minecraft.client.Minecraft;
-
-@Mixin(Minecraft.class)
-public class SmoothScrollMaskMixin {
-
-}*///?}

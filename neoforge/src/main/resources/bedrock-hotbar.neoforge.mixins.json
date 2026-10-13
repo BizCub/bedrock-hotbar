@@ -9,8 +9,7 @@
         "ChatComponentMixin",
         "ContextualBarRendererMixin",
         "GuiMixin",
-        "RenderBottomOfTextureMixin",
-        "SmoothScrollMaskMixin"
+        "RenderBottomOfTextureMixin"
     ],
     "mixins": [
         "AppleskinCompat"

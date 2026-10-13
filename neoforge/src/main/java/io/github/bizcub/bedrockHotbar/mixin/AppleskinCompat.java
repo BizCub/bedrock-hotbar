@@ -1,11 +1,9 @@
 package io.github.bizcub.bedrockHotbar.mixin;
 
 import io.github.bizcub.bedrockHotbar.Main;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-
-//? neoforge {
-/*import net.minecraft.client.gui.GuiGraphicsExtractor;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import squeek.appleskin.client.HUDOverlayHandler;
 
@@ -17,7 +15,3 @@ public class AppleskinCompat {
         return Main.operation(instance.guiHeight());
     }
 }
-
-*///?} else {
-@Mixin(value = {})
-public class AppleskinCompat {}//?}

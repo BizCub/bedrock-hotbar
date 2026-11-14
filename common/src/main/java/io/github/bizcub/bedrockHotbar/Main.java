@@ -10,8 +10,8 @@ public class Main {
     public static final int MIN_OFFSET = 0;
     public static final int MAX_OFFSET = 100;
 
-    public static void init() {
-        if (ConfigHelper.isConfigLoaded()) {
+    public static void init(boolean hasSimpleConfig) {
+        if (hasSimpleConfig) {
             Config.set(SimpleConfig.getInstance().get());
         }
     }
